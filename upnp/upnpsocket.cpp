@@ -273,11 +273,12 @@ QByteArray CUpnpSocket::userAgent ()
 
 bool CUpnpSocket::discover (QHostAddress const & hostAddress, quint16 port, quint16 mx, const char* uuid)
 {
+  char mxstr[10];
+  sprintf(mxstr, "%d", mx);
   QByteArray datagram = "M-SEARCH * HTTP/1.1\r\nHOST: %1:1900\r\nMAN: \"ssdp:discover\"\r\nMX: %2\r\nST: %3\r\nCONTENT-LENGTH: 0\r\n\r\n";
   datagram.replace ("%1", hostAddress.toString ().toLatin1 ().constData ());
-
-  datagram.replace ("%2", std::to_string (mx).c_str ());
-  if (uuid == nullptr || *uuid == '\0')
+  datagram.replace ("%2", mxstr);
+  if (uuid == NULL || *uuid == '\0')
   {
     uuid = "upnp:rootdevice";
   }

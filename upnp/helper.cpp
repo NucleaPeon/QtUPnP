@@ -12,6 +12,10 @@
 //#include <Ws2tcpip.h>
 //#endif
 
+#ifdef Q_OS_LINUX
+#include <QSysLinux.h>
+#endif
+
 char const * QtUPnP::libraryVersion ()
 {
   return "1.1.4";
@@ -22,12 +26,38 @@ char const * QtUPnP::libraryName ()
   return "QtUPnP";
 }
 
+char const * QtUPnP::kernelVersion ()
+{
+#ifdef Q_OS_WIN
+	return QSysInfo::windowsVersion();
+#elseif Q_OS_MAC
+	return QSysInfo::macVersion();
+#elseif Q_OS_LINUX
+	return QSysLinux::kernelVersion().toLocal8Bit().data();
+#endif
+}
+
 QString QtUPnP::replace127_0_0_1 (QString const & uri)
 {
   QString correctedURI = uri;
   correctedURI.replace ("127.0.0.1", CUpnpSocket::localHostAddress ().toString ());
   return correctedURI;
 }
+//
+// int lessThan(QtUPnP::SIp4TableElem const & e1, QtUPnP::SIp4TableElem const & e2)
+// {
+//     {
+//       if (e1.m_ip4Addr == e2.m_ip4Addr)
+//       {
+//         return 0;
+//       }
+//
+//       return (e1.m_ip4Addr &0xff) > (e2.m_ip4Addr & 0xff) ? -1 : +1;
+//     };
+//
+//     std::sort (ipAddrs.begin (), ipAddrs.end (), lessThan);
+//   }
+// }
 
 /*
 QVector<QtUPnP::SIp4TableElem> QtUPnP::ip4NetTable ()
@@ -147,8 +177,29 @@ QString QtUPnP::buildSystemHeader ()
       name = "Microsoft-Windows/10.0";
       break;
   }
-#else
-  name = QSysInfo::kernelType () + '/' + QSysInfo::kernelVersion ();
+#elseif Q_OS_MAC
+  QSysInfo::MacVersion version = QSysInfo::MacVersion;
+  switch (version)
+  {
+    // Last supported OS X version from Qt 5.3.2
+  	case QSysInfo::MV_10_6:
+  		name = "Mac OS X 10.6"
+  		break;
+  	case QSysInfo::MV_10_7:
+  		name = "Mac OS X 10.7"
+  		break;
+  	case QSysInfo::MV_10_8:
+  		name = "Mac OS X 10.8"
+  		break;
+  	case QSysInfo::MV_10_9:
+  		name = "Mac OS X 10.9"
+  		break;
+  	default:
+  		name = "Unknown MacOS version (>10.9)"
+  		break;
+  }
+#elseif Q_OS_LINUX
+  name = QSysLinux::kernelType() + "/" + QSysLinux::kernelVersion();
 #endif
 
   return name;
@@ -183,7 +234,7 @@ long long QtUPnP::timeToMS (QString const & time)
 int QtUPnP::timeToS (QString const & time)
 {
   long long ms  = timeToMS (time);
-  auto      msd = static_cast<double>(ms);
+  double      msd = static_cast<double>(ms);
   return static_cast<int>(qRound64 (msd / 1000.0));
 }
 

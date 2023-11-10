@@ -10,7 +10,7 @@ USING_UPNP_NAMESPACE
 CDeviceMap::CDeviceMap ()
 {
   QHostAddress address = CUpnpSocket::localHostAddress ();
-  m_httpServer         = new CHTTPServer (address, 0, nullptr);
+  m_httpServer         = new CHTTPServer (address, 0, NULL);
   m_naMgr              = new QNetworkAccessManager ();
   m_httpServer->setNetworkAccessManager (m_naMgr);
 }
@@ -161,7 +161,7 @@ int CDeviceMap::extractDevicesFromNotify (QList<CUpnpSocket::SNDevice> const & n
       else if (!contains (nDevice.m_uuid) && m_invalidDevices.value (nDevice.m_uuid) < m_deviceFails)
       {
         bool        success      = false;
-        char const * failMessage = nullptr;
+        char const * failMessage = NULL;
         CDevice&    device       = *insertDevice (nDevice.m_uuid); // Insert in the map.
         QByteArray  data         = CDataCaller (m_naMgr).callData (nDevice.m_url, timeout); // Get services, name, from device url.
         if (!data.isEmpty ())

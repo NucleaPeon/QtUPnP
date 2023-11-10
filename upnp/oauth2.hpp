@@ -16,7 +16,7 @@ class CAuthEventLoop : public QEventLoop
 {
 public:
   /*! Constructor. */
-  CAuthEventLoop (QObject* parent = nullptr) : QEventLoop (parent) {}
+  CAuthEventLoop (QObject* parent = NULL) : QEventLoop (parent) {}
 
   /*! Sets the timer id. See COAuth2::tryConnection. */
   void setTimer (int idTimer) { m_idTimer = idTimer; }
@@ -48,7 +48,7 @@ public :
              };
 
   /*! Constructor. */
-  CAuth (EType type, QObject* parent = nullptr) : QObject (parent), m_type (type) {}
+  CAuth (EType type, QObject* parent = NULL) : QObject (parent), m_type (type) {}
 
   /*! Returns true if the connection is accepted. */
   virtual bool tryConnection () { return false; }
@@ -85,7 +85,7 @@ class COAuth2 : public CAuth, public CXmlH
   Q_OBJECT
 public:
   /*! Constructor. */
-  COAuth2 (QObject* parent = nullptr);
+  COAuth2 (QObject* parent = 0);
 
   /*! Sets the end point authentification.
    * E.g. for google drive "https://accounts.google.com/o/oauth2/v2/auth"
@@ -153,7 +153,7 @@ private :
   QStringList m_query; //!< List of variables used by authentification (e.g. "access_token").
   QString m_endPoint; //!< The authentification edn point e.g. for google drive "https://accounts.google.com/o/oauth2/v2/auth"
   QString m_redirectUri = "http://localhost:8080/aivctrl-oauth-callback"; //!< Redirect uri for OAuth2
-  QTcpServer* m_server = nullptr; //!< The server for redirect uri.
+  QTcpServer* m_server = NULL; //!< The server for redirect uri.
 
   QString const m_client_id = "client_id"; //!< Predifined key
   QString const m_client_secret = "client_secret"; //!< Predifined key

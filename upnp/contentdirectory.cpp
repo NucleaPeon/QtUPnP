@@ -8,7 +8,7 @@ CBrowseReply CContentDirectory::browse (QString const & serverUUID,
             QString const & objectID, EBrowseType type, QString const & filter,
             int startingIndex, int requestedCount, QString const & sortCriteria)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   CBrowseReply reply;
   int          index = startingIndex, cReturned = 0;
   do
@@ -52,7 +52,7 @@ CBrowseReply CContentDirectory::search (QString const & serverUUID, QString cons
              QString const & searchCriteria, QString const & filter,
              int startingIndex, int requestedCount, QString const & sortCriteria)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   CBrowseReply reply;
   int          index = startingIndex, cReturned = 0;
   do
@@ -94,7 +94,7 @@ CBrowseReply CContentDirectory::search (QString const & serverUUID, QString cons
 
 QStringList CContentDirectory::getSearchCaps (QString const & serverUUID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QStringList caps;
   QList<CControlPoint::TArgValue> args;
   args << CControlPoint::TArgValue ("SearchCaps",  QString ());
@@ -109,7 +109,7 @@ QStringList CContentDirectory::getSearchCaps (QString const & serverUUID)
 
 QStringList CContentDirectory::getSortCaps (QString const & serverUUID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QStringList                     caps;
   QList<CControlPoint::TArgValue> args;
   args << CControlPoint::TArgValue ("SortCaps",  QString ());
@@ -124,7 +124,7 @@ QStringList CContentDirectory::getSortCaps (QString const & serverUUID)
 
 unsigned CContentDirectory::getSystemUpdateID (QString const & serverUUID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   unsigned                       id = 0;
   QList<CControlPoint::TArgValue> args;
   args << CControlPoint::TArgValue ("Id",  QString ());
@@ -139,7 +139,7 @@ unsigned CContentDirectory::getSystemUpdateID (QString const & serverUUID)
 
 bool CContentDirectory::isValidItem (CDidlItem const & item)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   auto key = [] (CDidlItem const & item) -> QString
   {
     return item.uri (0) + item.itemID () + item.title ();
@@ -185,7 +185,7 @@ bool CContentDirectory::isValidItem (CDidlItem const & item)
 
 QList<int> CContentDirectory::invalidItems (QList<CDidlItem> const & items)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QList<int> indices;
   indices.reserve (items.size ());
   int        index = 0;

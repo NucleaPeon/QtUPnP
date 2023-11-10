@@ -10,7 +10,7 @@ class CUnicastSocket : public CUpnpSocket
 {
 public :
   /*! Default constructor. */
-  CUnicastSocket (QObject* parent = nullptr);
+  CUnicastSocket (QObject* parent = 0);
 
   /*! Destructor. */
   virtual ~CUnicastSocket ();

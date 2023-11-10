@@ -15,7 +15,7 @@ CInitialDiscovery::CInitialDiscovery (CUpnpSocket* socket, QHostAddress const & 
 bool CInitialDiscovery::discover (bool changeMX, char const * uuid)
 {
   bool success = false;
-  if (m_socket != nullptr)
+  if (m_socket != NULL)
   {
     success = m_socket->discover (m_hostAddress, m_port, m_mx, uuid);
     if (success && m_discoveryPause != 0)

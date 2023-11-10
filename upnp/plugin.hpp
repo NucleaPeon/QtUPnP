@@ -166,9 +166,9 @@ protected slots :
 
 protected :
   QPixmap m_pixmap; //!< The pixmap.
-  CAuth* m_auth = nullptr;//!< The autorisation.
-  QNetworkAccessManager* m_nam = nullptr; //!< Network access manager.
-  QBuffer* m_deleteBuffer = nullptr; //!< Futur use.
+  CAuth* m_auth = NULL;//!< The autorisation.
+  QNetworkAccessManager* m_nam = NULL; //!< Network access manager.
+  QBuffer* m_deleteBuffer = NULL; //!< Futur use.
   int m_callDataTimeout = 20000; //!< The callData timeout.
   QTimer m_tokensTimer; //!< Timer to renew access token.
   QString m_name; //!< Plugin name e.g googledriver for Google Drive.

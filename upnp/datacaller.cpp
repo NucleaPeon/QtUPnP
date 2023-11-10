@@ -9,7 +9,7 @@ CDataCaller::CDataCaller (QObject* parent) : QEventLoop (parent), m_naMgr (new Q
 
 CDataCaller::CDataCaller (QNetworkAccessManager* naMgr, QObject* parent) : QEventLoop (parent), m_naMgr (naMgr)
 {
-  if (m_naMgr == nullptr)
+  if (m_naMgr == NULL)
   {
     m_naMgr = new QNetworkAccessManager (this);
   }
@@ -69,7 +69,7 @@ void CDataCaller::finished ()
 
 void CDataCaller::error (QNetworkReply::NetworkError err)
 {
-  auto    reply = dynamic_cast<QNetworkReply*>(sender ());
+  QNetworkReply*    reply = dynamic_cast<QNetworkReply*>(sender ());
   QString error = QString ("Network reply error:%1->%2->%3")
                        .arg (err).arg (reply->url ().toString (), reply->errorString ());
   qDebug () << "CDataCaller::error: " << err << " (" << error << ")";

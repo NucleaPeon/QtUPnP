@@ -20,7 +20,7 @@ typedef QPair<QString, QString> TConstraint;
  * \param QVariant: Variable value.
  * \param QList<TConstraint>: Constraint list.
  */
-typedef QPair<QVariant, QList<TConstraint>> TValue;
+typedef QPair<QVariant, QList<TConstraint> > TValue;
 
 /*! \brief The CStateVariable class holds information about an UPnP state variable.
  *

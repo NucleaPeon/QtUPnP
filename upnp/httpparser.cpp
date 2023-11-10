@@ -155,12 +155,16 @@ bool CHTTPParser::parseMessage ()
             index = m_message.indexOf ("\r\n", length);
           }
         }
-
-        for (QList<TChunk>::const_reverse_iterator it = chunks.crbegin (), end = chunks.crend (); it != end; ++it)
-        {
-          TChunk const & chunk = *it;
-          m_message.remove (chunk.first, chunk.second);
-        }
+		for (int i=chunks.count()-1; i >= 0; --i)
+		{
+			const QPair<int, int> p = chunks.at(i);
+			m_message.remove(p.first, p.second);
+		}
+//         for (QList<TChunk>::const_reverse_iterator it = chunks.crbegin (), end = chunks.crend (); it != end; ++it)
+//         {
+//           TChunk const & chunk = *it;
+//           m_message.remove (chunk.first, chunk.second);
+//         }
       }
     }
   }

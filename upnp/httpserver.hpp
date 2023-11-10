@@ -217,7 +217,7 @@ private :
    * \param headers: Mandatory header.
    * \return The http header.
    */
-  QByteArray streamingHeaderResponse (QNetworkReply const * reply, QList<QPair<QByteArray, QByteArray>> const & headers) const;
+  QByteArray streamingHeaderResponse (QNetworkReply const * reply, QList<QPair<QByteArray, QByteArray> > const & headers) const;
 
   /*! Starts the streaming. A head or get request is sent to the http server.
    * \param request: The request to send.
@@ -248,9 +248,9 @@ private :
   QString m_playlistName; //!< The current playlist name.
   int m_connectToHostTimeout = 2000; // 2s
 
-  QNetworkAccessManager* m_naMgr = nullptr; //!< The https network access manager.
-  QTcpSocket* m_streamingSocket = nullptr; //!< The socket open by the renderer.
-  QNetworkReply* m_httpsReply = nullptr; //!< The reply of the https server.
+  QNetworkAccessManager* m_naMgr = NULL; //!< The https network access manager.
+  QTcpSocket* m_streamingSocket = NULL; //!< The socket open by the renderer.
+  QNetworkReply* m_httpsReply = NULL; //!< The reply of the https server.
   QNetworkRequest m_httpsRequest; //!< The request to send to the https server.
   int m_httpsBufferSize; //!< The https buffer size to limit the amount of data in memory.
   int m_httpsReadDataTimeout; //!< Wait to have https data to stream a new block. Very smal delay.

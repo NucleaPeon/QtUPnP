@@ -44,7 +44,7 @@ CControlPoint::~CControlPoint ()
 
 CMulticastSocket* CControlPoint::initializeMulticast (QHostAddress const & host, QHostAddress const & group, char const * name)
 {
-  auto socket = new CMulticastSocket (this);
+  CMulticastSocket *socket = new CMulticastSocket (this);
   if (socket->initialize (host, group))
   {
     socket->setName (name);
@@ -53,7 +53,7 @@ CMulticastSocket* CControlPoint::initializeMulticast (QHostAddress const & host,
   else
   {
     delete socket;
-    socket = nullptr;
+    socket = NULL;
   }
 
   return socket;
@@ -61,7 +61,7 @@ CMulticastSocket* CControlPoint::initializeMulticast (QHostAddress const & host,
 
 CUnicastSocket* CControlPoint::initializeUnicast (QHostAddress const & host, char const * name)
 {
-  auto socket = new CUnicastSocket (this);
+  CUnicastSocket *socket = new CUnicastSocket (this);
   if (socket->bind (host))
   {
     socket->setName (name);
@@ -70,7 +70,7 @@ CUnicastSocket* CControlPoint::initializeUnicast (QHostAddress const & host, cha
   else
   {
     delete socket;
-    socket = nullptr;
+    socket = NULL;
   }
 
   return socket;
@@ -81,11 +81,11 @@ bool CControlPoint::initialize ()
   new CDump (this);
   bool done         = false;
   m_multicastSocket = initializeMulticast (QHostAddress::AnyIPv4, CMulticastSocket::upnpMulticastAddr, "MulticastSocket");
-  if (m_multicastSocket != nullptr)
+  if (m_multicastSocket != NULL)
   {
     m_multicastSocket6 = initializeMulticast (QHostAddress::AnyIPv6, CMulticastSocket::upnpMulticastAddr6, "MulticastSocket6");
     m_unicastSocket    = initializeUnicast (CUpnpSocket::localHostAddress (), "UnicastSocket");
-    if (m_unicastSocket != nullptr)
+    if (m_unicastSocket != NULL)
     {
       m_unicastSocketLocal = initializeUnicast (QHostAddress ("127.0.0.1"), "UnicastSocketLocal");
       CHTTPServer* server = m_devices.httpServer ();
@@ -107,11 +107,12 @@ bool CControlPoint::avDiscover ()
   bool success = false;
   if (!m_closing)
   {
-    char const * ignored[] { "InternetGatewayDevice",
+    char const * ignored[] = { "InternetGatewayDevice",
                              "WANConnectionDevice",
                              "WANDevice",
                              "WFADevice",
                              "Printer",
+                             NULL
                             };
 
     for (char const * device : ignored)
@@ -128,7 +129,7 @@ bool CControlPoint::avDiscover ()
     int               cDeviceTypes = sizeof (urns) / sizeof (char const *);
     int               cDiscoveries = cDeviceTypes * 4;
     int               iDiscovery   = 0;
-    CInitialDiscovery initDiscovery (nullptr, CMulticastSocket::upnpMulticastAddr, CMulticastSocket::upnpMulticastPort);
+    CInitialDiscovery initDiscovery (NULL, CMulticastSocket::upnpMulticastAddr, CMulticastSocket::upnpMulticastPort);
     for (int iDeviceType = 0; iDeviceType < cDeviceTypes; iDeviceType += 2)
     {
       int          index = iDeviceType % cDeviceTypes;
@@ -178,7 +179,7 @@ bool CControlPoint::discover (char const * nt)
 
 void CControlPoint::readDatagrams ()
 {
-  auto               socket    = static_cast<CUpnpSocket*>(sender ());
+  CUpnpSocket*        socket    = static_cast<CUpnpSocket*>(sender ());
   QByteArray const & datagrams = socket->readDatagrams ();
   if (!datagrams.isEmpty () && datagrams.endsWith ("\r\n\r\n"))
   {
@@ -194,7 +195,7 @@ void CControlPoint::newDevicesDetected ()
   int          cRemainingDatagrams = 0;
   for (CUpnpSocket* socket : sockets)
   {
-    if (socket != nullptr)
+    if (socket != NULL)
     {
       cRemainingDatagrams += socket->datagram ().size ();
     }
@@ -235,7 +236,7 @@ void CControlPoint::newDevicesDetected ()
 
 void CControlPoint::renewalTimeout ()
 {
-  auto timer = static_cast<QTimer*>(sender ());
+  QTimer *timer = static_cast<QTimer*>(sender ());
   for (QMap<QString, TSubscriptionTimer>::const_iterator it = m_subcriptionTimers.cbegin (), end = m_subcriptionTimers.cend (); it != end; ++it)
   {
     TSubscriptionTimer const & stimer = it.value ();
@@ -293,7 +294,7 @@ QList<CUpnpSocket::SNDevice> CControlPoint::ndevices () const
   CUpnpSocket*                 sockets[] = { m_unicastSocket, m_unicastSocketLocal, m_multicastSocket, m_multicastSocket6 };
   for (CUpnpSocket* socket : sockets)
   {
-    if (socket != nullptr)
+    if (socket != NULL)
     {
       cDevices += socket->devices ().size ();
     }
@@ -302,7 +303,7 @@ QList<CUpnpSocket::SNDevice> CControlPoint::ndevices () const
   devices.reserve (cDevices);
   for (CUpnpSocket* socket : sockets)
   {
-    if (socket != nullptr)
+    if (socket != NULL)
     {
       QList<CUpnpSocket::SNDevice> const & socketDevices = socket->devices ();
       for (CUpnpSocket::SNDevice const & device : socketDevices)
@@ -528,7 +529,7 @@ bool CControlPoint::subscribe (QString const & deviceUUID, int renewalDelay, int
     success = m_devices.subscribe (device, renewalDelay, requestTimeout);
     if (success)
     {
-      auto timer = new QTimer;
+      QTimer* timer = new QTimer;
       timer->setInterval ((renewalDelay - m_renewalGard) * 1000);
       timer->setSingleShot (true);
       timer->start ();
@@ -549,7 +550,7 @@ void CControlPoint::unsubscribe (QString const & deviceUUID, int requestTimeout)
     CDevice&       device = m_devices[deviceUUID];
     CDevice::EType type   = device.type ();
     QTimer* timer = m_subcriptionTimers.value (deviceUUID).first;
-    if (timer != nullptr)
+    if (timer != NULL)
     {
       delete timer;
       m_subcriptionTimers.remove (deviceUUID);
@@ -652,7 +653,7 @@ QString CControlPoint::playlistURI (QString const & name) const
 {
   QString             uri;
   CHTTPServer const * server = httpServer ();
-  if (server != nullptr)
+  if (server != NULL)
   {
     uri = server->playlistURI (name);
   }
@@ -664,7 +665,7 @@ QString CControlPoint::serverListenAddress () const
 {
   QString             uri;
   CHTTPServer const * server = httpServer ();
-  if (server != nullptr)
+  if (server != NULL)
   {
     uri = server->serverListenAddress ();
   }
@@ -676,7 +677,7 @@ int CControlPoint::setPlaylistContent (QList<CDidlItem::TPlaylistElem> const & i
 {
   int           size   = 0;
   CHTTPServer * server = httpServer ();
-  if (server != nullptr)
+  if (server != NULL)
   {
     QByteArray content = CDidlItem::buildsPlaylist (items, format);
     server->setPlaylistContent (content);
@@ -689,7 +690,7 @@ int CControlPoint::setPlaylistContent (QList<CDidlItem::TPlaylistElem> const & i
 void CControlPoint::setPlaylistName (QString const & name)
 {
   CHTTPServer* server = httpServer ();
-  if (server != nullptr)
+  if (server != NULL)
   {
     server->setPlaylistName (name);
   }
@@ -699,7 +700,7 @@ QString CControlPoint::playlistName () const
 {
   QString             name;
   CHTTPServer const * server = httpServer ();
-  if (server != nullptr)
+  if (server != NULL)
   {
     name = server->playlistName ();
   }
@@ -710,7 +711,7 @@ QString CControlPoint::playlistName () const
 void CControlPoint::clearPlaylist ()
 {
   CHTTPServer* server = httpServer ();
-  if (server != nullptr)
+  if (server != NULL)
   {
     server->clearPlaylist ();
   }
@@ -852,11 +853,11 @@ void CControlPoint::loadPlugins ()
         if (suffix == "so" || suffix.toLower () == "dll")
         { // It is .dll or .so files.
           QFunctionPointer fct = QLibrary::resolve (filePath, "pluginObject");
-          if (fct != nullptr)
+          if (fct != NULL)
           {
-            auto     pluginObject = reinterpret_cast<CPlugin::TFctPluginObject>(fct);
+            CPlugin::TFctPluginObject     pluginObject = reinterpret_cast<CPlugin::TFctPluginObject>(fct);
             CPlugin* plugin       = (*pluginObject) ();
-            if (plugin != nullptr)
+            if (plugin != NULL)
             {
               plugin->setName (fi.baseName ());
               QString const & uuid = plugin->uuid ();
@@ -875,7 +876,7 @@ void CControlPoint::loadPlugins ()
       QString const & uuid   = it.key ();
       QString         file   = it.value ();
       CPlugin*        plugin = m_plugins.value (uuid);
-      if (plugin != nullptr)
+      if (plugin != NULL)
       {
         int index = file.lastIndexOf ('.');
         if (index != -1)
@@ -940,7 +941,7 @@ void CControlPoint::mediaRequest (QString request)
       {
         uuid            = CHTTPServer::unformatUUID (uuid);
         CPlugin* plugin = m_plugins.value (uuid);
-        if (plugin != nullptr)
+        if (plugin != NULL)
         {
           QNetworkRequest nreq = plugin->mediaRequest (request);
           httpServer ()->setStreamingRequest (nreq);
@@ -959,7 +960,7 @@ void CControlPoint::mediaRequest (QString request)
 void CControlPoint::abortStreaming ()
 {
   CHTTPServer* server = httpServer ();
-  if (server != nullptr)
+  if (server != NULL)
   {
     server->abortStreaming ();
   }
@@ -985,9 +986,9 @@ void CControlPoint::serverComEnded ()
   emit networkComEnded (CDevice::MediaServer);
 }
 
-QList<QPair<QString, QUrl>> CControlPoint::devicesFinding () const
+QList<QPair<QString, QUrl> > CControlPoint::devicesFinding () const
 {
-  QList<QPair<QString, QUrl>> pairs;
+  QList<QPair<QString, QUrl> > pairs;
   pairs.reserve (m_devices.size ());
   for (CDevice const & device : m_devices)
   {
@@ -1000,7 +1001,7 @@ QList<QPair<QString, QUrl>> CControlPoint::devicesFinding () const
   return pairs;
 }
 
-int CControlPoint::extractDevices (QList<QPair<QString, QUrl>> const & pairs, bool oneByOne, int timeout)
+int CControlPoint::extractDevices (QList<QPair<QString, QUrl> > const & pairs, bool oneByOne, int timeout)
 {
   QList<CUpnpSocket::SNDevice> ndevs;
   int                          cDevices = 0;

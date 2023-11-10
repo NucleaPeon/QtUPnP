@@ -40,6 +40,10 @@ char const * UPNP_API libraryVersion ();
 /*! Returns actual library name. */
 char const * UPNP_API libraryName ();
 
+char const * UPNP_API kernelVersion ();
+
+// int lessthan(SIp4TableElem const & e1, QtUPnP::SIp4TableElem const & e2);
+
 /*! \brief Replaces 127.0.0.1 by the true IP address.
  *
  * This function is to fix a problem on WMP.

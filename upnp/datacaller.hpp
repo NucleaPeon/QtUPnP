@@ -25,7 +25,7 @@ public :
    *
    * The QNetworkAccessManager is created internaly.
    */
-  CDataCaller (QObject* parent = nullptr);
+  CDataCaller (QObject* parent = 0);
 
   /*! Constructor with network access manager.
    *
@@ -33,7 +33,7 @@ public :
    * It is sometimes useful because create and destroy the network access manager
    * consumes time. Use this contructor when you want call callData function many times.
    */
-  CDataCaller (QNetworkAccessManager* naMgr, QObject* parent = nullptr);
+  CDataCaller (QNetworkAccessManager* naMgr, QObject* parent = 0);
 
   /*! Destructor. */
   ~CDataCaller ();
@@ -64,7 +64,7 @@ private slots:
 
 private :
   QString m_request; //!< The request.
-  QNetworkAccessManager* m_naMgr = nullptr; //!< The current netword access manager. see CDataCaller (QNetworkAccessManager* naMgr, QObject* parent).
+  QNetworkAccessManager* m_naMgr = NULL; //!< The current netword access manager. see CDataCaller (QNetworkAccessManager* naMgr, QObject* parent).
 };
 
 } // End namespace

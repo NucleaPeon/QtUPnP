@@ -26,7 +26,7 @@ public :
    * \param changeMX: True means the MX of the discovery message is changed at each sended message.
    * \param uuid: The destination uuid.
    */
-  bool discover (bool changeMX = false, char const * uuid = nullptr);
+  bool discover (bool changeMX = false, char const * uuid = NULL);
 
   /*! Sets the discovery pause in milliseconds. */
   void setDiscoveryPause (int pause) { m_discoveryPause = pause; }

@@ -462,13 +462,13 @@ void CHTTPServer::httpsFinished ()
   m_httpsReply = nullptr;
 }
 
-QByteArray CHTTPServer::streamingHeaderResponse (QNetworkReply const * reply, QList<QPair<QByteArray, QByteArray>> const & headers) const
+QByteArray CHTTPServer::streamingHeaderResponse (QNetworkReply const * reply, QList<QPair<QByteArray, QByteArray> > const & headers) const
 {
   // Find if the name is in mandatory headers.
   auto hasHeader = [headers] (QByteArray const & name) -> bool
   {
-    QList<QPair<QByteArray, QByteArray>>::const_iterator it  = headers.cbegin ();
-    QList<QPair<QByteArray, QByteArray>>::const_iterator end = headers.cend ();
+    QList<QPair<QByteArray, QByteArray> >::const_iterator it  = headers.cbegin ();
+    QList<QPair<QByteArray, QByteArray> >::const_iterator end = headers.cend ();
     for (; it != end && (*it).first.toUpper () != name.toUpper (); ++it);
     return it != end;
   };
@@ -534,7 +534,7 @@ void CHTTPServer::httpsReadyRead ()
     QByteArray      query              = req.rawHeader ("QtUPnP-Plugin-UrlQuery");
 
     // Extrac mandatory headers from the "QtUPnP-Plugin-UrlQuery" headers of the request.
-    QList<QPair<QByteArray, QByteArray>> headers;
+    QList<QPair<QByteArray, QByteArray> > headers;
     if (!query.isEmpty ())
     {
       QList<QByteArray> values = query.split ('&'); // Split in form of "variable namen = value."

@@ -365,7 +365,7 @@ public :
    * \remark The uuid and the the url are the current values and must be invalid for a futur used.
    * Generally uuid is valid, but the url can be changed by the DHCP.
    */
-  QList<QPair<QString, QUrl>> devicesFinding () const;
+  QList<QPair<QString, QUrl> > devicesFinding () const;
 
   /*! Extracts devices from a list of pairs containing the device uuid and the device url.
    * Certain devices must be invalid for different reasons:
@@ -379,7 +379,7 @@ public :
    * \param oneByOne: True the call at the url is processed one at a time to limit the network traffic.
    * \param timeout: The desired timeout for the response to the url calling.
    */
-  int extractDevices (QList<QPair<QString, QUrl>> const & pairs, bool oneByOne = false,
+  int extractDevices (QList<QPair<QString, QUrl> > const & pairs, bool oneByOne = false,
                      int timeout = CDataCaller::Timeout);
 
   /*! Constant to define a empty list of argument. */
@@ -555,10 +555,10 @@ private :
   bool m_done = false; //!< The status of the creation.
   bool m_closing = false; //!< The control point  is being closed.
   bool m_networkCom = false; //!< Do not emit signals for network communications.
-  CUnicastSocket* m_unicastSocket = nullptr; //!< Unicast sockets.
-  CUnicastSocket* m_unicastSocketLocal = nullptr; //!< Unicast sockets local (bind on 127.0.0.1).
-  CMulticastSocket* m_multicastSocket = nullptr;  //!< Multicast sockets ipv4.
-  CMulticastSocket* m_multicastSocket6 = nullptr;  //!< Multicast sockets ipv6.
+  CUnicastSocket* m_unicastSocket = NULL; //!< Unicast sockets.
+  CUnicastSocket* m_unicastSocketLocal = NULL; //!< Unicast sockets local (bind on 127.0.0.1).
+  CMulticastSocket* m_multicastSocket = NULL;  //!< Multicast sockets ipv4.
+  CMulticastSocket* m_multicastSocket6 = NULL;  //!< Multicast sockets ipv6.
   CDeviceMap m_devices; //!< Map of discovered devices.
   QMap<QString, TSubscriptionTimer> m_subcriptionTimers; //!< Map of subscription timers.
   int m_renewalGard = 120; //!< Gard for renewing in seconds (2 mn).

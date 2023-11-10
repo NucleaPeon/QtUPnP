@@ -49,7 +49,7 @@ public :
   };
 
   /*! Default constructor. */
-  CUpnpSocket (QObject* parent = nullptr);
+  CUpnpSocket (QObject* parent = 0);
 
   /*! Destructor. */
   virtual ~CUpnpSocket ();
@@ -70,7 +70,7 @@ public :
   void decodeDatagram ();
 
   /*! Launchs the M-SEARCH udp datagram. */
-  bool discover (QHostAddress const & hostAddress, quint16 port, quint16 mx = 5, char const * uuid = nullptr);
+  bool discover (QHostAddress const & hostAddress, quint16 port, quint16 mx = 5, char const * uuid = NULL);
 
   /*! Clear the device list. */
   void resetDevices () { m_devices.clear (); }

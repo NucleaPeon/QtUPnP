@@ -10,7 +10,7 @@ class CMulticastSocket : public CUpnpSocket
 {
 public :
   /*! Default constructor. */
-  CMulticastSocket (QObject* parent = nullptr);
+  CMulticastSocket (QObject* parent = NULL);
 
   /*! Destructor. */
   virtual ~CMulticastSocket ();

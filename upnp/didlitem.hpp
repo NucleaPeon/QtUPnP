@@ -5,6 +5,8 @@
 #include "upnp_global.hpp"
 #include <QSharedDataPointer>
 #include <QMultiMap>
+#include <QStringList>
+#include <QXmlStreamWriter>
 
 START_DEFINE_UPNP_NAMESPACE
 
@@ -497,6 +499,7 @@ private :
 
 private:
   QSharedDataPointer<SDidlItemData> m_d; //!< Shared data pointer.
+  static bool tqeSort(QPair<quint64, CDidlElem> const & a, QPair<quint64, CDidlElem> const & b) { return a.first > b.first; }
 };
 
 } // Namespace

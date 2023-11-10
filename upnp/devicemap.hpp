@@ -103,8 +103,8 @@ protected :
   bool extractServiceComponents (CDevice& device, int timeout);
 
 private :
-  CHTTPServer* m_httpServer = nullptr; //!< The http server for eventing.
-  QNetworkAccessManager* m_naMgr = nullptr;  //!< The network access manager for dataCaller.
+  CHTTPServer* m_httpServer = NULL; //!< The http server for eventing.
+  QNetworkAccessManager* m_naMgr = NULL;  //!< The network access manager for dataCaller.
   QStringList m_newDevices; //!< List of new devices.
   QStringList m_lostDevices; //!< List of lost devices.
   QMap<QString, int> m_invalidDevices; //!< Invalid devices. The device is invalid when get services fails twice.

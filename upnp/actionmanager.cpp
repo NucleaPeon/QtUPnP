@@ -15,7 +15,7 @@ CActionManager::CActionManager (QObject* parent ) : QEventLoop (parent), m_naMgr
 CActionManager::CActionManager (QNetworkAccessManager* naMgr, QObject* parent) : QEventLoop (parent),
      m_naMgr (naMgr)
 {
-  if (m_naMgr == nullptr)
+  if (m_naMgr == NULL)
   {
     m_naMgr = new QNetworkAccessManager (this);
   }
@@ -39,7 +39,7 @@ void CActionManager::finished ()
 void CActionManager::error (QNetworkReply::NetworkError err)
 {
   m_error             = err;
-  auto    replySender = static_cast<QNetworkReply*>(sender ());
+  QNetworkReply* replySender = static_cast<QNetworkReply*>(sender ());
   QString errorString = replySender->errorString ();
   qDebug () << "CActionManager::error: " << static_cast<int>(err) << " (" << errorString << ")";
   emit networkError (m_device, err, errorString);

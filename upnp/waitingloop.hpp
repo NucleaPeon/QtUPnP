@@ -16,7 +16,7 @@ class UPNP_API CWaitingLoop : public QEventLoop
 
 public:
   /*! Contructs CWaitingLoop with a delay of timeout. */
-  CWaitingLoop (int timeout, ProcessEventsFlags flags, QObject* parent = nullptr);
+  CWaitingLoop (int timeout, ProcessEventsFlags flags, QObject* parent = 0);
 
   /*! Starts the loop with a delay of timeout. */
   void start (int timeout) { m_idTimer = QEventLoop::startTimer (timeout); }

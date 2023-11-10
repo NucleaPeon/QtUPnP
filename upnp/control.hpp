@@ -42,7 +42,7 @@ public:
   static bool toBool (QString const & entryString);
 
 protected :
-  CControlPoint* m_cp = nullptr; //<! The control point of the application.
+  CControlPoint* m_cp = NULL; //<! The control point of the application.
 };
 
 } // Namespace

@@ -252,7 +252,7 @@ int CDidlItem::sortResElems (QList<CDidlElem>& elems)
       qes.push_back (qe);
     }
 
-    std::sort (qes.begin (), qes.end (), [](TQE const & a, TQE const & b) {return a.first > b.first; });
+    std::sort (qes.begin (), qes.end (), CDidlItem::tqeSort);
     elems.clear ();
     for (TQE const & qe : qes)
     {
@@ -316,7 +316,7 @@ int CDidlItem::sortAlbumArtURIs (QList<CDidlElem>& elems)
     qes.push_back (qe);
   }
 
-  std::sort (qes.begin (), qes.end (), [](TQE const & a, TQE const & b) {return a.first > b.first; });
+  std::sort (qes.begin (), qes.end (), CDidlItem::tqeSort);
   elems.clear ();
   for (TQE const & qe : qes)
   {
@@ -372,48 +372,48 @@ QStringList CDidlItem::stringValues (char const * tag) const
 
 QStringList CDidlItem::uris (ESortType sort) const
 {
-  QStringList uris;
-  if (sort != SortRes)
-  {
-    uris = stringValues ("res");
-  }
-  else
-  {
-    QList<CDidlElem> elems = m_d->m_elems.values ("res");
-    sortResElems (elems);
-    uris.reserve (elems.size ());
-    for (CDidlElem const & elem : elems)
+    QStringList uris;
+    if (sort != SortRes)
     {
-      uris << elem.value ();
+        uris = stringValues ("res");
     }
-  }
+    else
+    {
+        QList<CDidlElem> elems = m_d->m_elems.values ("res");
+        sortResElems (elems);
+        uris.reserve (elems.size ());
+        for (CDidlElem const & elem : elems)
+        {
+            uris << elem.value ();
+        }
+    }
 
-  return uris;
+    return uris;
 }
 
 QString CDidlItem::uri (int index, ESortType sort) const
 {
-  QStringList uris = this->uris (sort);
-  QString     uri;
-  if (!uris.isEmpty ())
-  {
-    if (index == -1)
+    QStringList uris = this->uris (sort);
+    QString     uri;
+    if (!uris.isEmpty ())
     {
-      index = uris.size () - 1;
+        if (index == -1)
+        {
+            index = uris.size () - 1;
+        }
+
+        if (index >= 0 && index < uris.size ())
+        {
+            uri = uris[index];
+        }
     }
 
-    if (index >= 0 && index < uris.size ())
-    {
-      uri = uris[index];
-    }
-  }
-
-  return uri;
+    return uri;
 }
 
 QStringList CDidlItem::albumArtURIs (ESortType sort) const
 {
-  QStringList      uris;
+    QStringList      uris;
   QList<CDidlElem> elems = m_d->m_elems.values ("upnp:albumArtURI");
   if (elems.size () > 1 && sort == SortAlbumArt)
   {
@@ -484,43 +484,45 @@ QString CDidlItem::didl (bool percentEncodeing) const
   stream.writeAttribute ("xmlns:upnp", "urn:schemas-upnp-org:metadata-1-0/upnp/");
   stream.writeAttribute ("xmlns:dlna","urn:schemas-dlna-org:metadata-1-0/" );
 
-  auto writeElements = [this, &stream] (QString const & tag, bool close = true)
-  {
-    QList<CDidlElem> elems = m_d->m_elems.values (tag);
-    for (CDidlElem const & elem : elems)
-    {
-      stream.writeStartElement (tag);
-      TMProps const & props = elem.props ();
-      for (TMProps::const_iterator itProp = props.begin (); itProp != props.end (); ++itProp)
+  struct antilambda {
+      static void writeElements(const QSharedDataPointer<QtUPnP::SDidlItemData> p, QXmlStreamWriter* stream, const QString tag, bool close = true)
       {
-        QString const & name  = itProp.key ();
-        QString const & value = itProp.value ();
-        stream.writeAttribute (name, value);
-      }
+          QList<CDidlElem> elems = p->m_elems.values (tag);
+          for (CDidlElem const & elem : elems)
+          {
+                stream->writeStartElement (tag);
+                TMProps const & props = elem.props ();
+                for (TMProps::const_iterator itProp = props.begin (); itProp != props.end (); ++itProp)
+                {
+                  QString const & name  = itProp.key ();
+                  QString const & value = itProp.value ();
+                  stream->writeAttribute (name, value);
+                }
 
-      QString const & value = elem.value ();
-      if (!value.isEmpty ())
-      {
-        stream.writeCharacters (value);
-      }
+                QString const & value = elem.value ();
+                if (!value.isEmpty ())
+                {
+                  stream->writeCharacters (value);
+                }
 
-      if (close)
-      {
-        stream.writeEndElement ();
+                if (close)
+                {
+                  stream->writeEndElement ();
+                }
+          }
       }
-    }
   };
 
   QStringList           keys = m_d->m_elems.uniqueKeys ();
   QStringList::iterator it   = std::find (keys.begin (), keys.end (), "item");
   if (it != keys.end ())
   {
-    writeElements (*it, false);
+    antilambda::writeElements(m_d, &stream, *it, false);
     for (QString const & key : keys)
     {
       if (key != "item")
       {
-        writeElements (key);
+        antilambda::writeElements(m_d, &stream, *it);
       }
     }
 
