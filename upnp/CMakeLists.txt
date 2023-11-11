@@ -15,6 +15,7 @@ find_package(Qt5 REQUIRED
 include(GNUInstallDirs)  # REQUIRED TO INSTALL PKGCONFIG TO PROPER DIR!
 include_directories(${PROJECT_SOURCE_DIR})
 #add_compile_options(-v)
+set(CMAKE_AUTOMOC ON)
 
 list(APPEND QTUPNP_HEADERS
     upnp_global.hpp

@@ -1,6 +1,8 @@
 #ifndef ACTION_MANAGER_HPP
 #define ACTION_MANAGER_HPP 1
 
+#include <QObject>
+#include <QString>
 #include "using_upnp_namespace.hpp"
 #include "upnp_global.hpp"
 #include <QtNetwork/QNetworkReply>
@@ -22,7 +24,7 @@ public :
   enum ETime { Timeout = 30000 }; //!< HTTP request timeout in ms (30s).
 
   /*! Default constructor. */
-  CActionManager (QObject* parent = 0);
+  explicit CActionManager (QObject* parent = 0);
 
   /*! Constructor with network access manager.
    *
