@@ -25,7 +25,7 @@ class CStdAction : public QDialog
 
 public:
   explicit CStdAction (CControlPoint* cp, QString const & deviceUUID,
-           QString const & action, QWidget* parent = nullptr);
+           QString const & action, QWidget* parent = NULL);
   ~CStdAction ();
 
 protected slots :
@@ -36,9 +36,9 @@ private :
   void createWidgets (QString const & actionName);
 
 private:
-  Ui::CStdAction* ui = nullptr;
-  QGridLayout* m_inLayout = nullptr, * m_outLayout = nullptr;
-  CControlPoint* m_cp = nullptr;
+  Ui::CStdAction* ui = NULL;
+  QGridLayout* m_inLayout = NULL, * m_outLayout = NULL;
+  CControlPoint* m_cp = NULL;
   QString m_deviceUUID;
   QString m_serviceID;
   QString m_actionName;

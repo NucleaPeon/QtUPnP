@@ -53,9 +53,9 @@ void CMainWindow::hideProgressBar (bool hide)
 
 QTreeWidgetItem* CMainWindow::findActionItem (QString const & text)
 {
-  QTreeWidgetItem*        item = nullptr;
+  QTreeWidgetItem*        item = NULL;
   QTreeWidgetItemIterator it (ui->m_services);
-  while ((*it) != nullptr)
+  while ((*it) != NULL)
   {
     QString itemText = (*it)->text(0);
     itemText.remove (QRegExp (" \\(\\d+ms\\)"));
@@ -86,7 +86,7 @@ void CMainWindow::createActionLinks ()
 
 void CMainWindow::removeActionArgs (QTreeWidgetItem* item)
 {
-  if (item != nullptr)
+  if (item != NULL)
   {
     while (item->childCount () != 0)
     {

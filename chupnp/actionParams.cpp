@@ -34,9 +34,12 @@ bool CActionParams::sendMute (bool& current)
 {
   CActionParams s;
   s.m_ui->m_name->setText ("SetMute");
-  setHidden ( {s.m_ui->m_min, s.m_ui->m_max, s.m_ui->m_lmin, s.m_ui->m_lmax});
+  QList<QWidget*> ws;
+  ws << s.m_ui->m_min << s.m_ui->m_max << s.m_ui->m_lmin << s.m_ui->m_lmax;
+  setHidden (ws);
   s.m_ui->m_current->setText (current ? "true" : "false");
-  s.m_ui->m_allowed->addItems ({QString("false"), QString ("true")});
+  s.m_ui->m_allowed->addItem(QString("false"));
+  s.m_ui->m_allowed->addItem(QString("true"));
   s.m_ui->m_allowed->setCurrentIndex (!current);
   int ok = s.exec () != 0;
   if (ok)
@@ -95,8 +98,10 @@ bool CActionParams::sendAVTransportURI (QString& current)
 {
   CActionParams s;
   s.m_ui->m_name->setText ("SetAVTransportURI");
-  setHidden ({s.m_ui->m_min, s.m_ui->m_max, s.m_ui->m_lmin, s.m_ui->m_lmax,
-              s.m_ui->m_lallowed, s.m_ui->m_allowed});
+  QList<QWidget*> ws;
+  ws << s.m_ui->m_min << s.m_ui->m_max << s.m_ui->m_lmin << s.m_ui->m_lmax <<
+              s.m_ui->m_lallowed << s.m_ui->m_allowed;
+  setHidden (ws);
   s.m_ui->m_current->setText (current);
   int ok = s.exec () != 0;
   if (ok)
@@ -112,8 +117,10 @@ bool CActionParams::sendNextAVTransportURI (QString& current)
   CActionParams s;
   s.m_ui->m_name->setText ("SetNextAVTransportURI");
   s.m_ui->m_current->setText (current);
-  setHidden ({s.m_ui->m_min, s.m_ui->m_max, s.m_ui->m_lmin, s.m_ui->m_lmax,
-              s.m_ui->m_lallowed, s.m_ui->m_allowed});
+  QList<QWidget*> ws;
+  ws << s.m_ui->m_min << s.m_ui->m_max << s.m_ui->m_lmin << s.m_ui->m_lmax <<
+              s.m_ui->m_lallowed << s.m_ui->m_allowed;
+  setHidden (ws);
   s.m_ui->m_current->setText (current);
   int ok = s.exec () != 0;
   if (ok)
@@ -129,8 +136,10 @@ bool CActionParams::sendPPS (QString const & transportState, QString const & act
   CActionParams s;
   s.m_ui->m_name->setText (action);
   s.m_ui->m_current->setText (transportState);
-  setHidden ({s.m_ui->m_min, s.m_ui->m_max, s.m_ui->m_lmin, s.m_ui->m_lmax,
-              s.m_ui->m_lallowed, s.m_ui->m_allowed, s.m_ui->m_copy});
+  QList<QWidget*> ws;
+  ws << s.m_ui->m_min << s.m_ui->m_max << s.m_ui->m_lmin << s.m_ui->m_lmax <<
+              s.m_ui->m_lallowed << s.m_ui->m_allowed << s.m_ui->m_copy;
+  setHidden (ws);
 
   QString state = "STOPPED";
   if (action == "Pause")
@@ -151,10 +160,12 @@ bool CActionParams::sendPN (QString const & action)
 {
   CActionParams s;
   s.m_ui->m_name->setText (action);
-  setHidden ({s.m_ui->m_min, s.m_ui->m_max, s.m_ui->m_lmin, s.m_ui->m_lmax,
-              s.m_ui->m_lallowed, s.m_ui->m_allowed, s.m_ui->m_copy,
-              s.m_ui->m_current, s.m_ui->m_lcurrent, s.m_ui->m_new, s.m_ui->m_copy,
-              s.m_ui->m_new, s.m_ui->m_lnew});
+  QList<QWidget*> ws;
+  ws << s.m_ui->m_min << s.m_ui->m_max << s.m_ui->m_lmin << s.m_ui->m_lmax <<
+              s.m_ui->m_lallowed << s.m_ui->m_allowed << s.m_ui->m_copy <<
+              s.m_ui->m_current << s.m_ui->m_lcurrent << s.m_ui->m_new <<
+              s.m_ui->m_copy << s.m_ui->m_new << s.m_ui->m_lnew;
+  setHidden (ws);
 
   return s.exec () != 0;
 }
@@ -163,7 +174,9 @@ bool CActionParams::sendPlayMode (QString& current, QStringList const & allowed)
 {
   CActionParams s;
   s.m_ui->m_name->setText ("SetPlayMode");
-  setHidden ({s.m_ui->m_min, s.m_ui->m_max, s.m_ui->m_lmin, s.m_ui->m_lmax});
+  QList<QWidget*> ws;
+  ws << s.m_ui->m_min << s.m_ui->m_max << s.m_ui->m_lmin << s.m_ui->m_lmax;
+  setHidden (ws);
   s.m_ui->m_current->setText (current);
   s.m_ui->m_allowed->addItems (allowed);
   s.m_ui->m_allowed->setCurrentText (current);
@@ -199,7 +212,9 @@ bool CActionParams::sendSearch (QString& criteria, QStringList const & allowed)
   s.m_ui->m_allowed->addItems (allowed);
   s.m_ui->m_current->setText (criteria);
   s.m_ui->m_new->clear ();
-  setHidden ({s.m_ui->m_min, s.m_ui->m_max, s.m_ui->m_lmin, s.m_ui->m_lmax});
+  QList<QWidget*> ws;
+  ws << s.m_ui->m_min << s.m_ui->m_max << s.m_ui->m_lmin << s.m_ui->m_lmax;
+  setHidden (ws);
   int ok = s.exec () != 0;
   if (ok)
   {
@@ -216,7 +231,9 @@ bool CActionParams::selectPreset (QString& preset, QStringList const & allowed)
   s.m_ui->m_allowed->addItems (allowed);
   s.m_ui->m_current->setText (preset);
   s.m_ui->m_new->clear ();
-  setHidden ({s.m_ui->m_min, s.m_ui->m_max, s.m_ui->m_lmin, s.m_ui->m_lmax});
+  QList<QWidget*> ws;
+  ws << s.m_ui->m_min << s.m_ui->m_max << s.m_ui->m_lmin << s.m_ui->m_lmax;
+  setHidden (ws);
   int ok = s.exec () != 0;
   if (ok)
   {

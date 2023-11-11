@@ -127,10 +127,10 @@ private :
 
 private:
   Ui::CMainWindow* ui;
-  CControlPoint* m_cp = nullptr; //!< It is the CControlPoint.
+  CControlPoint* m_cp = NULL; //!< It is the CControlPoint.
   CAVControl m_ctl; //!< AV manager action (just an orginazation).
   QTimer m_timer; //!< Use to start discovery and update progress bar during disconery.
-  QProgressBar* m_pb = nullptr; //!< Progress bar during discovery.
+  QProgressBar* m_pb = NULL; //!< Progress bar during discovery.
   bool m_initRunning = true; //!< Discovery running.
   QString m_deviceUUID; //!< The current device UUID.
   QMap<QString, QStringList> m_actionLinks; //!< Links between actions. e.g setMute expand mute.

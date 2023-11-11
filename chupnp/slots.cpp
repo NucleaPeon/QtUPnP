@@ -121,7 +121,7 @@ void CMainWindow::discoveryLaunched (char const * nt, int index, int count)
 
 void CMainWindow::on_m_devices_itemDoubleClicked (QTreeWidgetItem *item, int column)
 {
-  if (item->parent () != nullptr)
+  if (item->parent () != NULL)
   {
     m_current.reset ();
     ui->m_tabWidget->setCurrentIndex (1);

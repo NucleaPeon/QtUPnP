@@ -34,7 +34,7 @@ static void addArg (QTreeWidgetItem* item, QString const & name, QStringList con
 
 void CMainWindow::sendGetAction (QTreeWidgetItem* item)
 {
-  if (item == nullptr)
+  if (item == NULL)
   {
     return;
   }
@@ -368,7 +368,7 @@ void CMainWindow::updateGetAction (QString const & name)
   for (QString const & action : actions)
   {
     QTreeWidgetItem* item = findActionItem (action);
-    if (item != nullptr)
+    if (item != NULL)
     {
       sendGetAction (item);
       item->setExpanded (true);
