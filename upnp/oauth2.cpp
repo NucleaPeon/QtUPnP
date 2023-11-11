@@ -113,7 +113,7 @@ QByteArray COAuth2::htmlConnectionResponse (QString const & text, bool ok)
 void COAuth2::readyRead ()
 {
   bool       done   = false;
-  auto       socket = static_cast<QTcpSocket*>(sender ());
+  QTcpSocket*       socket = static_cast<QTcpSocket*>(sender ());
   QByteArray data   = socket->readAll ();
   if (data.startsWith ("GET /aivctrl-oauth-callback"))
   {
@@ -175,7 +175,7 @@ void COAuth2::readyRead ()
 
 void COAuth2::disconnected ()
 {
-  auto socket = static_cast<QTcpSocket*>(sender ());
+  QTcpSocket* socket = static_cast<QTcpSocket*>(sender ());
   socket->deleteLater ();
 }
 
@@ -256,9 +256,9 @@ void COAuth2::save (QString const & fileName) const
       stream.writeStartElement ("plugin");
       stream.writeAttribute ("version", "1.0.0");
 
-      QVector<QPair<QString, QString>> elems = { QPair<QString, QString> ("id0", m_access_token),
-                                                 QPair<QString, QString> ("id1", m_refresh_token)
-                                               };
+      QVector<QPair<QString, QString> > elems;
+      elems << QPair<QString, QString> ("id0", m_access_token)
+            << QPair<QString, QString> ("id1", m_refresh_token);
       for (QPair<QString, QString> const & elem : elems)
       {
         stream.writeStartElement (elem.first);

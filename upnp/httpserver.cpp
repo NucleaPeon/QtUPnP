@@ -8,7 +8,6 @@
 #include <QNetworkRequest>
 #include <QFileInfo>
 #include <cstring>
-#include <array>
 
 USING_UPNP_NAMESPACE
 
@@ -69,7 +68,7 @@ void CHTTPServer::incomingConnection (qintptr socketDescriptor)
 bool CHTTPServer::connectToHost (QTcpSocket* socket)
 {
   bool success = false;
-  if (socket != nullptr)
+  if (socket != NULL)
   {
     success = socket->state () == QAbstractSocket::ConnectedState;
     if (!success)
@@ -122,7 +121,7 @@ bool CHTTPServer::sendHttpResponse (QTcpSocket* socket, char const * bytes, int 
 {
   emit rendererComStarted ();
   bool success = false;
-  if (socket != nullptr)
+  if (socket != NULL)
   {
     success = connectToHost (socket);
     if (success)
@@ -238,13 +237,13 @@ void CHTTPServer::streamBlock ()
 {
   // Wait 20s max by default. In fact this code is to initialyze an event loop. Generally cWaitings < 3.
   int cWaitings = 0;
-  while (m_httpsReply != nullptr && cWaitings < m_httpsReadDataWaitingRetry && m_httpsReply->bytesAvailable () == 0)
+  while (m_httpsReply != NULL && cWaitings < m_httpsReadDataWaitingRetry && m_httpsReply->bytesAvailable () == 0)
   {
     ++cWaitings;
     CWaitingLoop::wait (m_httpsReadDataTimeout, QEventLoop::AllEvents);
   }
 
-  if (m_httpsReply != nullptr && cWaitings < m_httpsReadDataWaitingRetry)
+  if (m_httpsReply != NULL && cWaitings < m_httpsReadDataWaitingRetry)
   {
     emit serverComStarted ();
     QByteArray data = m_httpsReply->read (m_httpsBufferSize);
@@ -385,7 +384,7 @@ void CHTTPServer::socketDisconnected ()
   socket->deleteLater ();
   if (socket == m_streamingSocket)
   {
-    m_streamingSocket = nullptr;
+    m_streamingSocket = NULL;
   }
 }
 
@@ -404,7 +403,7 @@ bool CHTTPServer::startStreaming (QNetworkRequest const & request, QString const
   bool success = false;
   if (method == "GET" || method == "HEAD")
   { // Only get or head methods.
-    if (m_naMgr == nullptr)
+    if (m_naMgr == NULL)
     {
       m_naMgr = new QNetworkAccessManager (this);
     }
@@ -459,31 +458,24 @@ void CHTTPServer::httpsFinished ()
   }
 
   m_httpsReply->deleteLater ();
-  m_httpsReply = nullptr;
+  m_httpsReply = NULL;
 }
 
-QByteArray CHTTPServer::streamingHeaderResponse (QNetworkReply const * reply, QList<QPair<QByteArray, QByteArray> > const & headers) const
+bool CHTTPServer::hasHeader(QList<QPair<QByteArray, QByteArray> > const & headers, QByteArray const & name) const
 {
-  // Find if the name is in mandatory headers.
-  auto hasHeader = [headers] (QByteArray const & name) -> bool
-  {
     QList<QPair<QByteArray, QByteArray> >::const_iterator it  = headers.cbegin ();
     QList<QPair<QByteArray, QByteArray> >::const_iterator end = headers.cend ();
     for (; it != end && (*it).first.toUpper () != name.toUpper (); ++it);
     return it != end;
-  };
+}
 
+QByteArray CHTTPServer::streamingHeaderResponse (QNetworkReply const * reply, QList<QPair<QByteArray, QByteArray> > const & headers) const
+{
   QByteArray const crlf = "\r\n";
 
-  // Header tags to preseve.
-  typedef std::array<QByteArray, 6> TTags;
-  TTags const tags = { "DATE",
-                       "SERVER",
-                       "CONTENT-TYPE",
-                       "CONTENT-LENGTH",
-                       "CONTENT-RANGE",
-                       "CONTENT-ENCODING",
-                     };
+  // Header tags to preseve.f
+  QVector<QByteArray> tags;
+  tags << "DATE" << "SERVER" << "CONTENT-TYPE" << "CONTENT-LENGTH" << "CONTENT-RANGE" << "CONTENT-ENCODING";
   QByteArray header;
   header.reserve (1024);
   QVariant httpStatusCode   = reply->attribute (QNetworkRequest::HttpStatusCodeAttribute);
@@ -496,8 +488,8 @@ QByteArray CHTTPServer::streamingHeaderResponse (QNetworkReply const * reply, QL
   for (QNetworkReply::RawHeaderPair const & headerPair : headerPairs)
   {
     QByteArray            name = headerPair.first.toUpper ();
-    TTags::const_iterator end  = tags.cend ();
-    if (std::find (tags.cbegin (), end, name) != end && !hasHeader (name))
+    QVector<QByteArray>::const_iterator end  = tags.cend ();
+    if (std::find (tags.cbegin (), end, name) != end && !hasHeader (headers, name))
     { // Header is in tags and not in mandatory.
       QByteArray value = headerPair.second;
       header          += name + ": " + value + crlf;
@@ -574,22 +566,22 @@ void CHTTPServer::httpsReadyRead ()
 
 void CHTTPServer::clearStreaming ()
 {
-  if (m_httpsReply != nullptr)
+  if (m_httpsReply != NULL)
   {
     m_httpsReply->deleteLater ();
-    m_httpsReply = nullptr;
+    m_httpsReply = NULL;
   }
 
-  if (m_streamingSocket != nullptr)
+  if (m_streamingSocket != NULL)
   {
     m_streamingSocket->disconnectFromHost ();
-    m_streamingSocket = nullptr;
+    m_streamingSocket = NULL;
   }
 }
 
 void CHTTPServer::abortStreaming ()
 {
-  if (m_httpsReply != nullptr)
+  if (m_httpsReply != NULL)
   {
     m_httpsReply->abort ();
   }

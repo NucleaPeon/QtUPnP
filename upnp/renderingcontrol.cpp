@@ -6,7 +6,7 @@ USING_UPNP_NAMESPACE
 
 QStringList CRenderingControl::getListPresets (QString const & rendererUUID, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QStringList                     presets;
   QList<CControlPoint::TArgValue> args;
   args.reserve (2);
@@ -33,7 +33,7 @@ int CRenderingControl::getVolume (QString const & rendererUUID, QString const & 
 
 bool CRenderingControl::selectPreset (QString const & rendererUUID, QString const & preset, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   m_cp->abortStreaming ();
   QList<CControlPoint::TArgValue> args;
   args.reserve (2);
@@ -125,7 +125,7 @@ int CRenderingControl::getVolumeDB (QString const & rendererUUID, QString const 
 
 QPair<int, int> CRenderingControl::getVolumeDBRange (QString const & rendererUUID, QString const & channel, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QList<CControlPoint::TArgValue> args;
   args.reserve (2);
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));
@@ -215,7 +215,7 @@ bool CRenderingControl::setVolumeDB (QString const & rendererUUID, int value, QS
 
 unsigned CRenderingControl::getUInt1 (QString const & rendererUUID, QString const & action, QString const & arg, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QList<CControlPoint::TArgValue> args;
   args.reserve (3);
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));
@@ -232,7 +232,7 @@ unsigned CRenderingControl::getUInt1 (QString const & rendererUUID, QString cons
 
 int CRenderingControl::getInt1 (QString const & rendererUUID, QString const & action, QString const & arg, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QList<CControlPoint::TArgValue> args;
   args.reserve (3);
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));
@@ -249,7 +249,7 @@ int CRenderingControl::getInt1 (QString const & rendererUUID, QString const & ac
 
 bool CRenderingControl::setUInt1 (QString const & rendererUUID, QString const & action, QString const & arg, unsigned value, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QList<CControlPoint::TArgValue> args;
   args.reserve (3);
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));
@@ -260,7 +260,7 @@ bool CRenderingControl::setUInt1 (QString const & rendererUUID, QString const & 
 
 bool CRenderingControl::setInt1 (QString const & rendererUUID, QString const & action, QString const & arg, int value, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QList<CControlPoint::TArgValue> args;
   args.reserve (3);
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));
@@ -271,7 +271,7 @@ bool CRenderingControl::setInt1 (QString const & rendererUUID, QString const & a
 
 bool CRenderingControl::setVolume (QString const & rendererUUID, QString const & action, int value, QString const & channel, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QList<CControlPoint::TArgValue> args;
   args.reserve (3);
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));
@@ -284,7 +284,7 @@ bool CRenderingControl::setVolume (QString const & rendererUUID, QString const &
 
 int CRenderingControl::getVolume (QString const & rendererUUID, QString const & action, QString const & channel, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QList<CControlPoint::TArgValue> args;
   args.reserve (3);
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));
@@ -302,7 +302,7 @@ int CRenderingControl::getVolume (QString const & rendererUUID, QString const & 
 
 bool CRenderingControl::setBoolChannel (QString const & rendererUUID, QString const & action, bool value, QString const & arg, QString const & channel, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QList<CControlPoint::TArgValue> args;
   args.reserve (3);
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));
@@ -314,7 +314,7 @@ bool CRenderingControl::setBoolChannel (QString const & rendererUUID, QString co
 
 bool CRenderingControl::getBoolChannel (QString const & rendererUUID, QString const & action, QString const & arg, QString const & channel, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QList<CControlPoint::TArgValue> args;
   args.reserve (3);
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));

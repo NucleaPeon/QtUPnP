@@ -6,7 +6,9 @@ START_DEFINE_UPNP_NAMESPACE
 /*! \brief Internal structure of CService. */
 struct SServiceData : public QSharedData
 {
-  SServiceData () {}
+  SServiceData () {
+      m_instanceIDs = QVector<unsigned>(1);
+  }
   SServiceData (SServiceData const & other);
 
   QString m_serviceType;
@@ -16,7 +18,7 @@ struct SServiceData : public QSharedData
   QString m_subscribeSID;
   TMStateVariables m_stateVariables;
   TMActions m_actions;
-  QVector<unsigned> m_instanceIDs = { 0 };
+  QVector<unsigned> m_instanceIDs;
   unsigned short m_minorVersion = 0;
   unsigned short m_majorVersion = 1;
   bool m_evented = false;

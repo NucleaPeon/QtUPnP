@@ -2,7 +2,7 @@
 #define XMLH_DEVICE_HPP
 
 #include "xmlh.hpp"
-#include <array>
+#include <QVector>
 
 START_DEFINE_UPNP_NAMESPACE
 
@@ -13,7 +13,7 @@ class CXmlHDevice : public CXmlH
 {
 public:
   enum ETempService { Id, Type, ScpdURL, ControlURL, EventSubURL, Last };
-  typedef std::array<QString, Last> TTempService;
+  //QVector<QString> TTempService = QVector<QString>(Last);
 
   /*! Default constructor. */
   CXmlHDevice (CDevice& device);
@@ -35,9 +35,9 @@ public:
 
 private :
   CDevice& m_device; //!< The device to updated.
-  QStack<QVector<TTempService>> m_tempServices; //!* The stack of services for the device and each embeded devices.
+  QStack<QVector<QVector<QString> > > m_tempServices; //!* The stack of services for the device and each embeded devices.
   QStack<CDevice*> m_subDevices; //!* The stack of embeded devices.
-  CDevice* m_current = nullptr; //!< Current parsed device.
+  CDevice* m_current = NULL; //!< Current parsed device.
   QString m_urlBase; //!< base url in case of embedded devices.
   bool m_deviceList = false; //!< The xml contains a device list tag.
 };

@@ -3,7 +3,7 @@
 
 USING_UPNP_NAMESPACE
 
-CDump* CDump::m_dump = nullptr;
+CDump* CDump::m_dump = NULL;
 
 CDump::CDump (QObject* parent) : QObject (parent)
 {

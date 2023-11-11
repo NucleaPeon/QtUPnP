@@ -1,6 +1,7 @@
 #ifndef TRANSPORT_SETTINGS_HPP
 #define TRANSPORT_SETTINGS_HPP
 
+#include <QString>
 #include "using_upnp_namespace.hpp"
 #include "upnp_global.hpp"
 #include <QSharedDataPointer>

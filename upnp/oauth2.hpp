@@ -1,6 +1,9 @@
 #ifndef OAUTH2_HPP
 #define OAUTH2_HPP
 
+#include <QString>
+#include <QVector>
+#include <QPair>
 #include "xmlh.hpp"
 #include <QEventLoop>
 #include <QTimerEvent>

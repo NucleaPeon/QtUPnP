@@ -131,6 +131,9 @@ public :
 
 private:
   QSharedDataPointer<SBrowseReplyData> m_d; //!< Shared data pointer.
+  static bool tdistSort(QPair<float, int> const & d1, QPair<float, int> const & d2) { return d1.first > d2.first; }
+  static bool titemGtSort(QPair<QString, CDidlItem> const & t1, QPair<QString, CDidlItem> const & t2) { return t1.first > t2.first; }
+  static bool titemLtSort(QPair<QString, CDidlItem> const & t1, QPair<QString, CDidlItem> const & t2) { return t1.first < t2.first; }
 };
 
 } //Namespace

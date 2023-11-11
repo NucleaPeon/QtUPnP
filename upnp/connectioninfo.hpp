@@ -1,6 +1,7 @@
 #ifndef CONNECTION_INFO_HPP
 #define CONNECTION_INFO_HPP
 
+#include <QString>
 #include "using_upnp_namespace.hpp"
 #include "upnp_global.hpp"
 #include <QSharedDataPointer>

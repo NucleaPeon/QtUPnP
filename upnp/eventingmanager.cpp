@@ -14,7 +14,7 @@ CEventingManager::CEventingManager () : m_naMgr (new QNetworkAccessManager (this
 
 CEventingManager::CEventingManager (QNetworkAccessManager* naMgr) : m_naMgr (naMgr)
 {
-  if (m_naMgr == nullptr)
+  if (m_naMgr == NULL)
   {
     m_naMgr = new QNetworkAccessManager (this);
   }
@@ -33,7 +33,7 @@ void CEventingManager::finished ()
 
 void CEventingManager::error (QNetworkReply::NetworkError err)
 {
-  auto    replySender = dynamic_cast<QNetworkReply*>(sender ());
+  QNetworkReply*    replySender = dynamic_cast<QNetworkReply*>(sender ());
   QString errorString = replySender->errorString ();
   qDebug () << "CEventingManager::error: " << err << " (" << errorString << ")";
   exit (err);

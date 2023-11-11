@@ -139,18 +139,17 @@ unsigned CContentDirectory::getSystemUpdateID (QString const & serverUUID)
 
 bool CContentDirectory::isValidItem (CDidlItem const & item)
 {
-  Q_ASSERT (m_cp != NULL);
-  auto key = [] (CDidlItem const & item) -> QString
-  {
-    return item.uri (0) + item.itemID () + item.title ();
-  };
+    Q_ASSERT (m_cp != NULL);
+    struct antilambda {
+        static bool identical(CDidlItem const & item, const QString key) {
+            return antilambda::key(item) == key;
+        }
+        const static QString key(CDidlItem const & item) {
+            return item.uri(0) + item.itemID() + item.title();
+        }
+    };
 
-  QString itemKey = key (item);
-  auto identical = [&itemKey, key] (CDidlItem const & item) -> bool
-  {
-    return key (item) == itemKey;
-  };
-
+    QString itemKey = antilambda::key(item);
   bool valid = m_validatedItemKeys.contains (itemKey);
   if (!valid)
   {
@@ -162,7 +161,7 @@ bool CContentDirectory::isValidItem (CDidlItem const & item)
       if (replyItems.size () == 1)
       {
         CDidlItem const & replyItem = replyItems.first ();
-        if (identical (replyItem))
+        if (antilambda::identical (replyItem, itemKey))
         {
           valid            = true;
           QString parentID = replyItem.parentID ();
@@ -172,7 +171,7 @@ bool CContentDirectory::isValidItem (CDidlItem const & item)
             reply = browse (server, parentID);
             for (CDidlItem const & parentItem : reply.items ())
             {
-              m_validatedItemKeys.insert (key (parentItem));
+              m_validatedItemKeys.insert (antilambda::key (parentItem));
             }
           }
         }

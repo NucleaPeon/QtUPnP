@@ -128,7 +128,7 @@ bool CXmlH::parse (QString const & response)
     }
 
     QBuffer buffer;
-    auto    constChar = reinterpret_cast<char const *>(data.data ());
+    const char* constChar = reinterpret_cast<char const *>(data.data ());
     buffer.setData (constChar, data.size () * 2);
     QXmlSimpleReader reader;
     QXmlInputSource  source (&buffer);

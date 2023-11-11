@@ -23,7 +23,7 @@ bool CAVTransport::waitForAVTransportURI (QString const & renderer, int iTrack)
 
 QStringList CAVTransport::getCurrentTransportActions (QString const & rendererUUID, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QStringList                     actions;
   QList<CControlPoint::TArgValue> args;
   args.reserve (2);
@@ -40,7 +40,7 @@ QStringList CAVTransport::getCurrentTransportActions (QString const & rendererUU
 
 CTransportInfo CAVTransport::getTransportInfo (QString const & rendererUUID, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   CTransportInfo                  transportInfo;
   QList<CControlPoint::TArgValue> args;
   args.reserve (4);
@@ -61,7 +61,7 @@ CTransportInfo CAVTransport::getTransportInfo (QString const & rendererUUID, uns
 
 CTransportSettings CAVTransport::getTransportSettings (QString const & rendererUUID, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   CTransportSettings              settings;
   QList<CControlPoint::TArgValue> args;
   args.reserve (3);
@@ -80,7 +80,7 @@ CTransportSettings CAVTransport::getTransportSettings (QString const & rendererU
 
 CDeviceCaps CAVTransport::getDeviceCaps (QString const & rendererUUID, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   CDeviceCaps                     caps;
   QList<CControlPoint::TArgValue> args;
   args.reserve (4);
@@ -101,7 +101,7 @@ CDeviceCaps CAVTransport::getDeviceCaps (QString const & rendererUUID, unsigned 
 
 CPositionInfo CAVTransport::getPositionInfo (QString const & rendererUUID, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   CPositionInfo                   positionInfo;
   QList<CControlPoint::TArgValue> args;
   args.reserve (9);
@@ -132,7 +132,7 @@ CPositionInfo CAVTransport::getPositionInfo (QString const & rendererUUID, unsig
 
 CMediaInfo CAVTransport::getMediaInfo (QString const & rendererUUID, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   CMediaInfo                      mediaInfo;
   QList<CControlPoint::TArgValue> args;
   args.reserve (10);
@@ -167,7 +167,7 @@ CMediaInfo CAVTransport::getMediaInfo (QString const & rendererUUID, unsigned in
 bool CAVTransport::setAVTransportURI (QString const & rendererUUID, CDidlItem const & item,
                                       int index, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   m_cp->abortStreaming ();
   CActionInfo actionInfo;
   QString uri = item.uri (index);
@@ -195,7 +195,7 @@ bool CAVTransport::setAVTransportURI (QString const & rendererUUID, QString cons
                                       QList<CDidlItem::TPlaylistElem> const & items,
                                       CDidlItem::EPlaylistFormat format, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   m_cp->abortStreaming ();
   bool        success = false;
   CActionInfo actionInfo;
@@ -220,7 +220,7 @@ bool CAVTransport::setAVTransportURI (QString const & rendererUUID, QString cons
 
 bool CAVTransport::setAVTransportURI (QString const & rendererUUID, QString const & uri, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   m_cp->abortStreaming ();
   CActionInfo actionInfo;
   if (!uri.isEmpty ())
@@ -239,7 +239,7 @@ bool CAVTransport::setAVTransportURI (QString const & rendererUUID, QString cons
 bool CAVTransport::setNextAVTransportURI (QString const & rendererUUID, CDidlItem const & item,
                                           int index, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   CActionInfo actionInfo;
   QString     uri = item.uri (index);
   if (!uri.isEmpty ())
@@ -257,7 +257,7 @@ bool CAVTransport::setNextAVTransportURI (QString const & rendererUUID, CDidlIte
 
 bool CAVTransport::setNextAVTransportURI (QString const & rendererUUID, QString const & uri, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   CActionInfo actionInfo;
   if (!uri.isEmpty ())
   {
@@ -274,7 +274,7 @@ bool CAVTransport::setNextAVTransportURI (QString const & rendererUUID, QString 
 
 bool CAVTransport::setPlayMode (QString const & rendererUUID, QString const & mode, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QList<CControlPoint::TArgValue> args;
   args.reserve (2);
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));
@@ -285,7 +285,7 @@ bool CAVTransport::setPlayMode (QString const & rendererUUID, QString const & mo
 
 bool CAVTransport::setPPS (QString const & rendererUUID, QString const & actionName, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QList<CControlPoint::TArgValue> args;
   args.reserve (2);
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));
@@ -319,7 +319,7 @@ bool CAVTransport::stop (QString const & rendererUUID, unsigned instanceID)
 
 bool CAVTransport::next (QString const & rendererUUID, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   m_cp->abortStreaming ();
   QList<CControlPoint::TArgValue> args;
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));
@@ -329,7 +329,7 @@ bool CAVTransport::next (QString const & rendererUUID, unsigned instanceID)
 
 bool CAVTransport::previous (QString const & rendererUUID, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   m_cp->abortStreaming ();
   QList<CControlPoint::TArgValue> args;
   args << CControlPoint::TArgValue ("InstanceID", QString::number (instanceID));
@@ -339,7 +339,7 @@ bool CAVTransport::previous (QString const & rendererUUID, unsigned instanceID)
 
 bool CAVTransport::seek (QString const & rendererUUID, QString const & timePosition, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QString time = timePosition;
   if (time.isEmpty () || time == "Beginning")
   {
@@ -357,7 +357,7 @@ bool CAVTransport::seek (QString const & rendererUUID, QString const & timePosit
 
 bool CAVTransport::seek (QString const & rendererUUID, int iTrack, unsigned instanceID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   m_cp->abortStreaming ();
   QList<CControlPoint::TArgValue> args;
   args.reserve (3);

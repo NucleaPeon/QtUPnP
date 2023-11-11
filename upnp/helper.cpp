@@ -68,7 +68,7 @@ QVector<QtUPnP::SIp4TableElem> QtUPnP::ip4NetTable ()
 
   QVector<QtUPnP::SIp4TableElem> ipAddrs;
 #ifdef Q_OS_WIN
-  PMIB_IPNET_TABLE2 ipTable = nullptr;
+  PMIB_IPNET_TABLE2 ipTable = NULL;
   unsigned          status  = ::GetIpNetTable2 (AF_INET, &ipTable);
   if (status == NO_ERROR)
   {

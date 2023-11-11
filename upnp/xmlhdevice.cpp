@@ -16,7 +16,7 @@ bool CXmlHDevice::startElement (QString const & namespaceURI, QString const & lo
   }
   else if (qName == "service")
   {
-    m_tempServices.top ().push_back (TTempService ());
+    m_tempServices.top ().push_back (QVector<QString> (Last));
   }
   else if (qName == "device")
   {
@@ -29,7 +29,7 @@ bool CXmlHDevice::startElement (QString const & namespaceURI, QString const & lo
       m_current = &m_current->subDevices ().last ();
     }
 
-    m_tempServices.push (QVector<TTempService> ());
+    m_tempServices.push (QVector<QVector<QString> > (Last));
     m_tempServices.top ().reserve (10);
   }
   else if (qName == "deviceList")
@@ -197,7 +197,7 @@ bool CXmlHDevice::endElement (QString const & namespaceURI, QString const & loca
   if (qName == "device")
   {
     TMServices services;
-    for (TTempService const & tempService : m_tempServices.pop ())
+    for (QVector<QString> const & tempService : m_tempServices.pop ())
     {
       CService service;
       service.setServiceType (tempService[Type]);

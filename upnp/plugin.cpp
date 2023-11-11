@@ -22,8 +22,8 @@ CPlugin::~CPlugin ()
 bool CPlugin::hasAutorisation ()
 {
   bool connected = false;
-  auto auth      = static_cast<COAuth2*>(m_auth);
-  if (auth != nullptr)
+  COAuth2* auth      = static_cast<COAuth2*>(m_auth);
+  if (auth != NULL)
   {
     connected = !auth->value ("code").isEmpty ();
     if (!connected)
@@ -43,8 +43,8 @@ void CPlugin::setPixmap (QString const & fileName)
 
 COAuth2* CPlugin::oauth2 ()
 {
-  COAuth2* auth = nullptr;
-  if (m_auth != nullptr && m_auth->type () == CAuth::OAuth2)
+  COAuth2* auth = NULL;
+  if (m_auth != NULL && m_auth->type () == CAuth::OAuth2)
   {
     auth = static_cast<COAuth2*>(m_auth);;
   }
@@ -76,7 +76,7 @@ void CPlugin::callDataFinished ()
 
 void CPlugin::callDataError (QNetworkReply::NetworkError err)
 {
-  auto    replySender = static_cast<QNetworkReply*>(sender ());
+  QNetworkReply*    replySender = static_cast<QNetworkReply*>(sender ());
   QString errorString = replySender->errorString ();
   qDebug () << "callDataError: " << err << " (" << errorString << ")";
   exit (-1);
@@ -106,12 +106,12 @@ QByteArray CPlugin::callData (EMethod method, QString const & request,
       nreq.setHeader (QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
     }
 
-    if (m_nam == nullptr)
+    if (m_nam == NULL)
     {
       m_nam = new QNetworkAccessManager (this);
     }
 
-    QNetworkReply* reply = nullptr;
+    QNetworkReply* reply = NULL;
     switch (method)
     {
       case Head :
@@ -134,7 +134,7 @@ QByteArray CPlugin::callData (EMethod method, QString const & request,
       {
         if (!data.isEmpty ())
         {
-          if (m_deleteBuffer == nullptr)
+          if (m_deleteBuffer == NULL)
           {
             m_deleteBuffer = new QBuffer (this);
           }
@@ -150,7 +150,7 @@ QByteArray CPlugin::callData (EMethod method, QString const & request,
       }
     }
 
-    if (reply != nullptr)
+    if (reply != NULL)
     {
       connect (reply, SIGNAL (error(QNetworkReply::NetworkError)), this, SLOT (callDataError(QNetworkReply::NetworkError)));
       connect (reply, SIGNAL (finished()), this, SLOT (callDataFinished()));

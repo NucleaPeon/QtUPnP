@@ -6,7 +6,7 @@ USING_UPNP_NAMESPACE
 
 QStringList CConnectionManager::getCurrentConnectionIDs (QString const & deviceUUID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QStringList ids;
   QList<CControlPoint::TArgValue> args;
   args << CControlPoint::TArgValue ("ConnectionIDs",  QString ());
@@ -26,7 +26,7 @@ QStringList CConnectionManager::getCurrentConnectionIDs (QString const & deviceU
 
 QVector<QStringList> CConnectionManager::getProtocolInfos (QString const & deviceUUID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   QVector<QStringList> protocols (2);
   QList<CControlPoint::TArgValue> args;
   args.reserve (2);
@@ -44,7 +44,7 @@ QVector<QStringList> CConnectionManager::getProtocolInfos (QString const & devic
 
 CConnectionInfo CConnectionManager::getCurrentConnectionInfo (QString const & deviceUUID)
 {
-  Q_ASSERT (m_cp != nullptr);
+  Q_ASSERT (m_cp != NULL);
   CConnectionInfo connectionInfo;
   CDevice const & device = m_cp->device (deviceUUID);
 

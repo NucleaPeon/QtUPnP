@@ -1,6 +1,7 @@
 #ifndef DEVICE_CAPS_HPP
 #define DEVICE_CAPS_HPP
 
+#include <QStringList>
 #include "using_upnp_namespace.hpp"
 #include "upnp_global.hpp"
 #include <QSharedDataPointer>

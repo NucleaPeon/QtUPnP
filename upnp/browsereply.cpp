@@ -175,8 +175,8 @@ QList<CDidlItem> CBrowseReply::search (QList<CDidlItem> const & items, QString t
       }
     }
 
-    std::sort (distances.begin (), distances.end (),
-               [] (TDistance const & d1, TDistance const & d2) { return d1.first > d2.first; });
+
+    std::sort (distances.begin (), distances.end (), tdistSort);
 
     // Reorganized items.
     results.reserve (returned);
@@ -299,15 +299,15 @@ void CBrowseReply::sort (CBrowseReply& reply, QString const & criteria, ESortDir
       itemArray[iItem] = TSortItem (value, items[iItem]);
     }
 
-    auto lt = [] (TSortItem const & s1, TSortItem const & s2) -> bool { return s1.first < s2.first; };
-    auto gt = [] (TSortItem const & s1, TSortItem const & s2) -> bool { return s1.first > s2.first; };
+    //auto lt = [] (TSortItem const & s1, TSortItem const & s2) -> bool { return s1.first < s2.first; };
+    //auto gt = [] (TSortItem const & s1, TSortItem const & s2) -> bool { return s1.first > s2.first; };
     if (dir)
     {
-      std::sort (itemArray.begin (), itemArray.end (), gt);
+      std::sort (itemArray.begin (), itemArray.end (), titemGtSort);
     }
     else
     {
-      std::sort (itemArray.begin (), itemArray.end (), lt);
+      std::sort (itemArray.begin (), itemArray.end (), titemLtSort);
     }
 
     for (int iItem = 0, end = items.size (); iItem < end; ++iItem)

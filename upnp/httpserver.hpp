@@ -238,6 +238,8 @@ private :
    */
   static QByteArray currentTime ();
 
+  bool hasHeader(QList<QPair<QByteArray, QByteArray> > const & headers, QByteArray const & name) const;
+
 private :
   typedef QPair<QByteArray, int> TMessageData;
   bool m_done = false; //!< The TCP server has well finished its initialization.

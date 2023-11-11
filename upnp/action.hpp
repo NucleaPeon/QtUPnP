@@ -1,6 +1,7 @@
 #ifndef ACTION_HPP
 #define ACTION_HPP
 
+#include <QString>
 #include "argument.hpp"
 #include <QSharedDataPointer>
 #include <QMap>
