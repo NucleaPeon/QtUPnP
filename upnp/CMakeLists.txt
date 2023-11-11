@@ -13,12 +13,10 @@ find_package(Qt5 REQUIRED
 )
 
 include(GNUInstallDirs)  # REQUIRED TO INSTALL PKGCONFIG TO PROPER DIR!
-include_directories(${PROJECT_SOURCE_DIR})
 #add_compile_options(-v)
 set(CMAKE_AUTOMOC ON)
 
 list(APPEND QTUPNP_HEADERS
-    upnp_global.hpp
     actionmanager.hpp
     controlpoint.hpp
     datacaller.hpp
@@ -67,6 +65,10 @@ list(APPEND QTUPNP_HEADERS
     oauth2.hpp
     aesencryption.h
     aes256.h
+)
+
+list(APPEND QTUPNP_HEADERS_GLOBAL
+	upnp_global.hpp
 )
 
 list(APPEND QTUPNP_SOURCES
@@ -126,18 +128,29 @@ endif()
 
 add_library(${PROJECT_NAME} SHARED
 	${QTUPNP_HEADERS}
+	${QTUPNP_HEADERS_GLOBAL}
 	${QTUPNP_SOURCES}
 )
 # Captures expected QSysLinux if installed without prefix to /usr
-target_include_directories(${PROJECT_NAME} INTERFACE /usr/local/include/)
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt5::Network Qt5::Xml)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION}
 	SOVERSION 1
 )
+set_target_properties(${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${QTUPNP_HEADERS_GLOBAL}")
+configure_file(${PROJECT_NAME}.pc.in ${PROJECT_NAME}.pc @ONLY)
+
 set_target_properties(
-	${PROJECT_NAME} PROPERTIES PUBLIC_HEADER ${QTUPNP_HEADERS})
+	${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${QTUPNP_HEADERS}")
+
+install(FILES ${header} DESTINATION "${include_dest}")
+
+
+install(FILES ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.pc DESTINATION
+	${CMAKE_INSTALL_DATAROOTDIR}/pkgconfig)
+
 install(TARGETS ${PROJECT_NAME}
+	EXPORT ${PROJECT_NAME}
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}"
 )
