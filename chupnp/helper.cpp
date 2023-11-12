@@ -1,5 +1,5 @@
 #include "mainwindow.hpp"
-#include "../upnp/actionmanager.hpp"
+#include <upnp/actionmanager.hpp>
 #include <QTreeWidgetItem>
 
 static char const * actions[] = { "GetMute",

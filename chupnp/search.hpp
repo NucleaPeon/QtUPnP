@@ -1,7 +1,7 @@
 #ifndef SEARCH_HPP
 #define SEARCH_HPP
 
-#include "../upnp/browsereply.hpp"
+#include <upnp/browsereply.hpp>
 #include <QDialog>
 
 USING_UPNP_NAMESPACE

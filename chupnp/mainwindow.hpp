@@ -2,9 +2,9 @@
 #define MAINWINDOW_HPP
 
 #include "item.hpp"
-#include "../upnp/avcontrol.hpp"
-#include "../upnp/httpserver.hpp"
-#include "../upnp/pixmapcache.hpp"
+#include <upnp/avcontrol.hpp>
+#include <upnp/httpserver.hpp>
+#include <upnp/pixmapcache.hpp>
 
 #include <QMainWindow>
 #include <QTimer>

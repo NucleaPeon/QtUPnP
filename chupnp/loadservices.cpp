@@ -2,7 +2,7 @@
 #include "helper.hpp"
 #include "item.hpp"
 #include "ui_mainwindow.h"
-#include "../upnp/controlpoint.hpp"
+#include <upnp/controlpoint.hpp>
 
 void CMainWindow::loadServices (QString const & uuid)
 {

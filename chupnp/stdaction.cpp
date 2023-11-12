@@ -1,6 +1,6 @@
 #include "stdaction.hpp"
 #include "ui_stdaction.h"
-#include "../upnp/actioninfo.hpp"
+#include <upnp/actioninfo.hpp>
 #include <QTextEdit>
 #include <QLabel>
 

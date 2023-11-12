@@ -1,7 +1,7 @@
 #include "mainwindow.hpp"
 #include "helper.hpp"
 #include "ui_mainwindow.h"
-#include "../upnp/avcontrol.hpp"
+#include <upnp/avcontrol.hpp>
 
 static void addArg (QTreeWidgetItem* item, QString const & name, int value)
 {

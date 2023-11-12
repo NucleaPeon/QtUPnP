@@ -73,15 +73,16 @@ QTreeWidgetItem* CMainWindow::findActionItem (QString const & text)
 
 void CMainWindow::createActionLinks ()
 {
-  m_actionLinks["SetMute"]           = QStringList ({"GetMute"});
-  m_actionLinks["SetVolume"]         = QStringList ({"GetVolume"});
-  m_actionLinks["SetVolumeDB"]       = QStringList ({"GetVolume", "GetVolumeDB", "GetVolumeDBRange"});
-  m_actionLinks["SetAVTransportURI"] = QStringList ({"GetMediaInfo"});
-  m_actionLinks["PPS"]               = QStringList ({"GetTransportInfo"});
-  m_actionLinks["SetPlayMode"]       = QStringList ({"GetTransportSettings"});
-  m_actionLinks["Seek"]              = QStringList ({"GetPositionInfo"});
-  m_actionLinks["PN"]                = QStringList ({"GetMediaInfo"});
-  m_actionLinks["SelectPreset"]      = QStringList ({"ListPresets"});
+  m_actionLinks["SetMute"]           = QStringList ("GetMute");
+  m_actionLinks["SetVolume"]         = QStringList ("GetVolume");
+  QStringList volumes;
+  m_actionLinks["SetVolumeDB"]       = (QStringList () << "GetVolume" << "GetVolumeDB" << "GetVolumeDBRange");
+  m_actionLinks["SetAVTransportURI"] = QStringList ("GetMediaInfo");
+  m_actionLinks["PPS"]               = QStringList ("GetTransportInfo");
+  m_actionLinks["SetPlayMode"]       = QStringList ("GetTransportSettings");
+  m_actionLinks["Seek"]              = QStringList ("GetPositionInfo");
+  m_actionLinks["PN"]                = QStringList ("GetMediaInfo");
+  m_actionLinks["SelectPreset"]      = QStringList ("ListPresets");
 }
 
 void CMainWindow::removeActionArgs (QTreeWidgetItem* item)
@@ -320,7 +321,7 @@ void CMainWindow::saveDevices ()
 {
   if (m_storeDevices)
   {
-    QList<QPair<QString, QUrl>> devices = m_cp->devicesFinding ();
+    QList<QPair<QString, QUrl> > devices = m_cp->devicesFinding ();
     QStringList                 dirs    = QStandardPaths::standardLocations (QStandardPaths::TempLocation);
     QFileInfo                   fi (QDir (dirs.first ()), "QtUPnPDevices");
     QFile file (fi.absoluteFilePath ());
@@ -339,7 +340,7 @@ void CMainWindow::restoreDevices ()
 {
   if (m_storeDevices)
   {
-    QList<QPair<QString, QUrl>> devices;
+    QList<QPair<QString, QUrl> > devices;
     QStringList                 dirs = QStandardPaths::standardLocations (QStandardPaths::TempLocation);
     QFileInfo                   fi (QDir (dirs.first ()), "QtUPnPDevices");
     QFile file (fi.absoluteFilePath ());

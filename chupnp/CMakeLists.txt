@@ -13,6 +13,7 @@ find_package(Qt5 REQUIRED
 )
 
 
+include_directories(../upnp)
 include(GNUInstallDirs)  # REQUIRED TO INSTALL PKGCONFIG TO PROPER DIR!
 #add_compile_options(-v)
 set(CMAKE_AUTOMOC ON)
@@ -54,16 +55,15 @@ list(APPEND CHUPNP_RES
 	chupnp.qrc
 )
 
-
 if (APPLE)
-	set(CMAKE_C_COMPILER clang)
-	set(CMAKE_CXX_COMPILER clang++)
+	set(CMAKE_C_COMPILER /usr/bin/clang)
+	set(CMAKE_CXX_COMPILER /usr/bin/clang++)
 
-	set(MACOSX_BUNDLE_ICON_FILE qjsonify.icns )
+	set(MACOSX_BUNDLE_ICON_FILE ${CMAKE_CURRENT_SOURCE_DIR}/qjsonify.icns )
 	set(APP_ICON "${MACOSX_BUNDLE_ICON_FILE}")
 	list(APPEND OTHER_TARGETS ${APP_ICON})
-	list(APPEND CHUPNP_SOURCES cocoainitializer.mm)
-	list(APPEND CHUPNP_HEADERS cocoainitializer.h)
+	list(APPEND CHUPNP_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/cocoainitializer.mm)
+	list(APPEND CHUPNP_HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/cocoainitializer.h)
 	add_custom_target(OTHER_FILES SOURCES ${OTHER_TARGETS})
 	set_property(SOURCE ${APP_ICON} PROPERTY MACOSX_PACKAGE_LOCATION
 		${MACOSX_BUNDLE_ICON_FILE})
@@ -71,7 +71,7 @@ if (APPLE)
 		 ${CMAKE_CURRENT_BINARY_DIR})
 	add_executable(${PROJECT_NAME} MACOSX_BUNDLE
 		${OTHER_FILES}
-		main.cpp
+		${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 		${CHUPNP_HEADERS}
 		${CHUPNP_SOURCES}
 		${CHUPNP_UIS}
@@ -109,7 +109,7 @@ else()
 	)
 endif()
 
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network Qt5::Xml)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network Qt5::Xml upnp)
 if(APPLE)
 	install(TARGETS ${PROJECT_NAME} BUNDLE DESTINATION ${CMAKE_SOURCE_DIR})
 else()

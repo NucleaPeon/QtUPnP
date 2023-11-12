@@ -1,7 +1,7 @@
 #ifndef ITEM_HPP
 #define ITEM_HPP
 
-#include "../upnp/didlitem.hpp"
+#include <upnp/didlitem.hpp>
 #include <QTreeWidgetItem>
 
 USING_UPNP_NAMESPACE

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.3)
-project(QtUPnP
+project(upnp
 	VERSION 1.0.0
 	LANGUAGES C CXX
 	DESCRIPTION "Qt5 UPnP Library compatible with Qt 5.3.2 & OS X 10.6.8"
@@ -122,8 +122,8 @@ list(APPEND QTUPNP_SOURCES
 )
 
 if(APPLE)
-	set(CMAKE_C_COMPILER clang)
-	set(CMAKE_CXX_COMPILER clang++)
+	set(CMAKE_C_COMPILER /usr/bin/clang)
+	set(CMAKE_CXX_COMPILER /usr/bin/clang++)
 endif()
 
 add_library(${PROJECT_NAME} SHARED

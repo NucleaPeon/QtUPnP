@@ -32,11 +32,9 @@ void CMainWindow::on_m_update_triggered ()
   loadServices (m_deviceUUID);
 }
 
-void CMainWindow::on_m_export_triggered ()
+void enumerateVariable(QTextStream &s, QTreeWidgetItem* item)
 {
-  auto enumerateVariable = [] (QTextStream& s, QTreeWidgetItem* item)
-  {
-    s << "<table border=\"1\" cellpadding=\"2px;\">";
+	s << "<table border=\"1\" cellpadding=\"2px;\">";
     for (int iItem = 0; iItem < item->childCount (); ++iItem)
     {
       QTreeWidgetItem* varItem = item->child (iItem);
@@ -51,8 +49,10 @@ void CMainWindow::on_m_export_triggered ()
     }
 
     s << "</table>";
-  };
+}
 
+void CMainWindow::on_m_export_triggered ()
+{
   QStringList args = QApplication::arguments ();
   QFileInfo   fileInfo (args[0]);
   QString     exeBaseName =  fileInfo.baseName ();

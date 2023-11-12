@@ -1,7 +1,7 @@
 #ifndef STDACTION_HPP
 #define STDACTION_HPP
 
-#include "../upnp/controlpoint.hpp"
+#include <upnp/controlpoint.hpp>
 #include <QDialog>
 
 namespace Ui
