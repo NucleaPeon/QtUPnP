@@ -12,15 +12,13 @@ find_package(Qt5 REQUIRED
     Xml
 )
 
-
+include_directories(${PROJECT_SOURCE_DIR})
 include_directories(../upnp)
 include(GNUInstallDirs)  # REQUIRED TO INSTALL PKGCONFIG TO PROPER DIR!
 #add_compile_options(-v)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
-
-
 
 list(APPEND CHUPNP_SOURCES
 	actionParams.cpp

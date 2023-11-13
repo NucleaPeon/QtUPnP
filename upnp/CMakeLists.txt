@@ -118,7 +118,6 @@ list(APPEND QTUPNP_SOURCES
     plugin.cpp
     oauth2.cpp
     aesencryption.cpp
-    QSysLinux.h
 )
 
 if(APPLE)
@@ -133,6 +132,10 @@ add_library(${PROJECT_NAME} SHARED
 )
 # Captures expected QSysLinux if installed without prefix to /usr
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt5::Network Qt5::Xml)
+if (UNIX)
+    include_directories(/usr/local/include)
+    target_link_libraries(${PROJECT_NAME} QSysLinux )
+endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION}
 	SOVERSION 1
