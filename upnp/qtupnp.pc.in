@@ -8,6 +8,6 @@ Description: @PROJECT_DESCRIPTION@
 Version: @PROJECT_VERSION@
 
 Requires:
-Libs: -L${libdir} -lQtUPnP
+Libs: -L${libdir} -lqtupnp
 Cflags: -I${includedir}
 

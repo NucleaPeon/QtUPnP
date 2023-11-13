@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.3)
-project(upnp
+project(qtupnp
 	VERSION 1.0.0
 	LANGUAGES C CXX
 	DESCRIPTION "Qt5 UPnP Library compatible with Qt 5.3.2 & OS X 10.6.8"
@@ -16,7 +16,13 @@ include(GNUInstallDirs)  # REQUIRED TO INSTALL PKGCONFIG TO PROPER DIR!
 #add_compile_options(-v)
 set(CMAKE_AUTOMOC ON)
 
+
+list(APPEND QTUPNP_HEADERS_GLOBAL
+	upnp_global.hpp
+)
+
 list(APPEND QTUPNP_HEADERS
+    qsyslinux.h
     actionmanager.hpp
     controlpoint.hpp
     datacaller.hpp
@@ -65,11 +71,9 @@ list(APPEND QTUPNP_HEADERS
     oauth2.hpp
     aesencryption.h
     aes256.h
+    ${QTUPNP_HEADERS_GLOBAL}
 )
 
-list(APPEND QTUPNP_HEADERS_GLOBAL
-	upnp_global.hpp
-)
 
 list(APPEND QTUPNP_SOURCES
 	actionmanager.cpp
@@ -125,17 +129,13 @@ if(APPLE)
 	set(CMAKE_CXX_COMPILER /usr/bin/clang++)
 endif()
 
-add_library(${PROJECT_NAME} SHARED
+add_library(${PROJECT_NAME} STATIC
 	${QTUPNP_HEADERS}
 	${QTUPNP_HEADERS_GLOBAL}
 	${QTUPNP_SOURCES}
 )
 # Captures expected QSysLinux if installed without prefix to /usr
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt5::Network Qt5::Xml)
-if (UNIX)
-    include_directories(/usr/local/include)
-    target_link_libraries(${PROJECT_NAME} QSysLinux )
-endif()
 
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION}
 	SOVERSION 1

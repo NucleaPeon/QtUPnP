@@ -13,7 +13,7 @@
 //#endif
 
 #ifdef Q_OS_LINUX
-#include <QSysLinux.h>
+#include "qsyslinux.h"
 #endif
 
 char const * QtUPnP::libraryVersion ()

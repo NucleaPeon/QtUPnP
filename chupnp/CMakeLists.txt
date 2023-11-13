@@ -13,7 +13,8 @@ find_package(Qt5 REQUIRED
 )
 
 include_directories(${PROJECT_SOURCE_DIR})
-include_directories(../upnp)
+include_directories("${PROJECT_SOURCE_DIR}/../upnp")
+message(STATUS "${PROJECT_SOURCE_DIR}/../upnp")
 include(GNUInstallDirs)  # REQUIRED TO INSTALL PKGCONFIG TO PROPER DIR!
 #add_compile_options(-v)
 set(CMAKE_AUTOMOC ON)
@@ -107,7 +108,8 @@ else()
 	)
 endif()
 
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network Qt5::Xml upnp)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network Qt5::Xml qtupnp)
+
 if(APPLE)
 	install(TARGETS ${PROJECT_NAME} BUNDLE DESTINATION ${CMAKE_SOURCE_DIR})
 else()
