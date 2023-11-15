@@ -7,7 +7,7 @@ project(upnpwidgets
 
 find_package(Qt5 REQUIRED
     Core
-    Gui
+    Widgets
     Network
     Xml
 )
@@ -66,7 +66,7 @@ add_library(${PROJECT_NAME} STATIC
 	${QTUPNPW_SOURCES}
 )
 # Captures expected QSysLinux if installed without prefix to /usr
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Gui Qt5::Network Qt5::Xml)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network Qt5::Xml qtupnp)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION}
 	SOVERSION 1

@@ -1,6 +1,6 @@
 #include "position.hpp"
-#include "../upnp/avtransport.hpp"
-#include "../upnp/helper.hpp"
+#include "../../upnp/avtransport.hpp"
+#include "../../upnp/helper.hpp"
 
 USING_UPNP_NAMESPACE
 

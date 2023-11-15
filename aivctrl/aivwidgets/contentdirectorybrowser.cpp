@@ -1,7 +1,7 @@
 #include "contentdirectorybrowser.hpp"
 #include "widgethelper.hpp"
-#include "../upnp/pixmapcache.hpp"
-#include "../upnp/plugin.hpp"
+#include "../../upnp/pixmapcache.hpp"
+#include "../../upnp/plugin.hpp"
 #include <QScrollBar>
 #include <QShortcut>
 

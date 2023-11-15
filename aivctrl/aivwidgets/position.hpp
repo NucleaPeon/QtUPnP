@@ -1,7 +1,7 @@
 #ifndef POSITION_HPP
 #define POSITION_HPP
 
-#include "../upnp/positioninfo.hpp"
+#include "../../upnp/positioninfo.hpp"
 #include "slider.hpp"
 
 namespace QtUPnP

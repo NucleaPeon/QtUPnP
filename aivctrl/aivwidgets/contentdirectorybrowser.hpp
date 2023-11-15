@@ -2,7 +2,7 @@
 #define CONTENTDIRECTORYDBROWSER_HPP
 
 #include "listwidgetbase.hpp"
-#include "../upnp/contentdirectory.hpp"
+#include "../../upnp/contentdirectory.hpp"
 #include <QTimer>
 
 namespace QtUPnP {

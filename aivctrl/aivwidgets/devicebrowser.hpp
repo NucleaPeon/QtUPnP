@@ -2,7 +2,7 @@
 #define DEVICEBROWSER_HPP
 
 #include "listwidgetbase.hpp"
-#include "../upnp/device.hpp"
+#include "../../upnp/device.hpp"
 
 /*! \brief This class adds CDevice at QListWidgetItem used to display devices.
  * It is used to show servers.

@@ -1,7 +1,7 @@
 #include "playlistbrowser.hpp"
-#include "../upnp/avtransport.hpp"
-#include "../upnp/plugin.hpp"
-#include "../upnp/dump.hpp"
+#include "../../upnp/avtransport.hpp"
+#include "../../upnp/plugin.hpp"
+#include "../../upnp/dump.hpp"
 #include <QShortcut>
 #include <QMessageBox>
 

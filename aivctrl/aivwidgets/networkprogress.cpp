@@ -2,6 +2,7 @@
 #include <QTimerEvent>
 #include <QResizeEvent>
 #include <QPainter>
+#include <QPainterPath>
 #include <QDateTime>
 #include <QDebug>
 

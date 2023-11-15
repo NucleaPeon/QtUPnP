@@ -19,18 +19,48 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTORCC ON)
 
-include(aivwidgets/CMakeLists.txt)
-
 list(APPEND AIVCTRL_SOURCES
+    about.cpp
+    buttonslots.cpp
+    controlpointslots.cpp
+    helper.cpp
+    icons.cpp
+    language.cpp
+    listwidgetslots.cpp
 	mainwindow.cpp
+	mainwindowhelper.cpp
+	playlist.cpp
+	playlistchoice.cpp
+	popupmenus.cpp
+	serverscanner.cpp
+	session.cpp
+	session.cpp
+	settings.cpp
+	sliderslots.cpp
+	systemevents.cpp
+	variousslots.cpp
+	xmlhplaylist.cpp
 )
 
 list(APPEND AIVCTRL_HEADERS
+	about.hpp
+	helper.hpp
+	language.hpp
 	mainwindow.hpp
+	playlist.hpp
+	playlistchoice.hpp
+	serverscanner.hpp
+	session.hpp
+	settings.hpp
+	xmlhplaylist.hpp
 )
 
 list(APPEND AIVCTRL_UIS
+	about.ui
+	language.ui
 	mainwindow.ui
+	playlistchoice.ui
+	settings.ui
 )
 
 list(APPEND AIVCTRL_RES
@@ -56,6 +86,7 @@ if (APPLE)
 		${AIVCTRL_HEADERS}
 		${AIVCTRL_SOURCES}
 		${AIVCTRL_UIS}
+		${AIVCTRL_RES}
 	)
 	target_sources(${PROJECT_NAME} PRIVATE
 		${OTHER_TARGETS}
@@ -84,10 +115,11 @@ else()
 		${AIVCTRL_HEADERS}
 		${AIVCTRL_SOURCES}
 		${AIVCTRL_UIS}
+		${AIVCTRL_RES}
 	)
 endif()
 
-target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network Qt5::Xml qtupnp)
+target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Widgets Qt5::Network Qt5::Xml qtupnp upnpwidgets)
 
 if(APPLE)
 	install(TARGETS ${PROJECT_NAME} BUNDLE DESTINATION ${CMAKE_SOURCE_DIR})
