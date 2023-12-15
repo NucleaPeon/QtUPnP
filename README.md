@@ -1,39 +1,49 @@
+QtUPnP
+======
+
+Overview
+--------
+
 QtUPnP framework is a C++ framework, based on QT5, to build easily an UPnP control point.
-It focuses on the UPnP/AV standards.
-For this, a set of classes are created to handle easily media servers and media renderers and to hide the UPnP protocol.
-Of course UPnP protocol (UPnP/AV use UPnP) is implemented and your can handle every compatible devices.
 
-For a better description, unzip /upnp/docs/html.zip and choose index.html.
+This particular project is a fork of <a href="https://github.com/ptstream/QtUPnP">https://github.com/ptstream/QtUPnP</a>.
 
-Build this framework and the test program need to install QT5. QtUPnP has been coded from:
-  - Windows: The build has been tested from and Qt 5.12.3 (mingw73_32 and mingw73_64).
-    Do not forget to add to the path (global or QtCreator) the access to qtupnp.dll or change qtupnp library by a static library.
+You can find additional docs in the ``/upnp/docs/html.zip`` zip file.
 
-  - Linux: The build has been tested Qt 5.12.3.
-    A 64 bits is built. It has been tested on Ubuntu 18.04 under VirtualBox and Ubuntu 18.04 native.
-	To build QtUPnP without QtCreator, see linux-build folder.
-	
-  - MacOS Mojave 10.14: The build has been tested from Qt 5.12.3 with Clang compiler.
-  
-  - Raspbian QtUPnP can be built using QT5.7 available in standard packages.
-    To build QtUPnP install QT5.7 and QtCreator on your Raspberry PI3.
-	  * sudo apt-get install qt5-default
-      * sudo apt-get install qtcreator
-	  
-	For me it worked but another solution is possible.
-	
-	  * sudo apt-get update
-      * sudo apt-get upgrade
-      * sudo apt-get install qtcreator gcc qtbase5-dev
-	  
-    It has been tested under Raspbian Stretch with desktop on a Raspberry PI3.
 
-**Remarks**
+**Original Author Remarks**
 - The framework use only QT API.
 - The folder upnp contains the framework to encapsulate the UPnP protocol. By default, it is a dll for Windows and a static library for all other systems.
-- The folder googledrive is optional. With this plugin, you can play files stored in your googledrive space.
-  You can remove it to build aivctrl. If you want to keep this folder, on Linux systems, you must enter in a terminal **chmod +x dep.sh** in the folder .../QtUPnP/googledrive.
-  Similarly on MacOS enter **chmod +x depmac.sh**.
+
+
+**Current Author Remarks**
+
+- Google drive plugin and support will not be supported due to the legacy Operating Systems supported in this version. See https://github.com/ptstream/QtUPnP
+  if you want this feature.
+- Changes to this fork include removing c++11 and later features and writing CMakeLists.txt files to replace .pro files.
+
+Support
+-------
+
+What makes this fork unique and useful is that the code has been back-ported to support pre-``C++-11`` standards so the following OS's are "supported":
+
+  - Windows XP/7: Untested, but planned support. Use MSVS 2010-2013 with appropriate Qt5.3.{1,2} binaries installed as well as dependencies
+
+  - Linux: Modern Linux with 5.15 is compatbile
+
+  - OS X 10.6.8+: Snow Leopard with Clang 3 / g++ 4.2 and XCode update.
+
+Building requires CMake.
+
+
+Roadmap
+-------
+
+ - [ ] Rename project from QtUPnP: While it may mirror some features of the original fork, this is its own fork that will not be using higher c++ standards
+       to maintain compatibility. I'm thinking something like "QtUPnP Retro" or "QtUPnP Legacy" or "QtUPnP SLE" (Snow Leopard Edition)
+
+ - [ ] Use library in other projects I'm working on, perhaps this will begin an initiative to build in ctests. The focus going forward is to ensure easy
+       configuration of upnp servers specifically for audio and video playback (ie: for audio players on older operating systems)
 
 
 *************** chupnp *******************
@@ -49,7 +59,12 @@ The main functionalities are:
   
   
 *************** AIVCtrl *******************
-![](readme-images/aivctrl.png)
+
+**TODO**
+
+ - [ ] Write CMakeLists.txt file to compile project and widgets
+
+<!-- ![](readme-images/aivctrl.png) -->
 
 aivctrl is a control point for users to drive media servers and media renderers. The user documentation it in /QtUPnP/aivctrl/doc
 The main fonctionnalities are:
@@ -61,88 +76,19 @@ The main fonctionnalities are:
   - Verify playlist elements.
   - And a lot of another things.
   
-To test easily AIVCtrl, some installers are available at: https://drive.google.com/drive/folders/1_MOe60dsZ-chqqjHpwyHcySzrp0ZyX55?usp=sharing
+Supported Hardware and Systems
+------------------------------
 
-  - Windows 7 to 10: Download install-AIVCtrl-32-1.1.4.exe and double click on it to install. This version run on Windows 32 and 64 bits.
-    You can use install-AIVCtrl-64-1.1.4.exe to install the 64 bits version.
-    Tested with Windows 10.
-	
-  - Linux x86 Debian base: Download aivctrl-1.1.4.deb double click on it to install. It is a 64 bits version.
-    Tested Ubuntu 18.04.
-	
-  - All Linux x86: Download aivctrl-1.1.4.zip for a manual installation. It is a 64 bits version.
-    Not tested (for this, use preferably /user/share/aivctrl/aivctrl.run.desktop to launch AIVCtrl).
-	
-  - MacOS: Download aivctrl-1.1.4.dmg double click on it and drag the aivctrl icon in Applications folder. It is a 64 bits version.
-	
-  - Raspbian: Download aivctrl-pi3-1.1.4.deb. It is a 32 bits version.
-      Tested on Raspberry PI3 with Raspbian Stretch.
-    	
-  - Documentation in English and French.
-  
-  - Remark: If you system run under VirtualBox, choose mode Bridge for the network.
-  
-Some hardware or software devices are tested :
-  
- Hardware servers
+ - Using minidlna on server hardware to provide over 13k audio files and many video files for testing
 
-    - NAS Synology DS214 (DSM 6).
-	- NAS Synology DS215J. (1)
-	- NAS Synology DS213. (1)
-	- NAS Synology DS120. (1)
-    - NAS Western Digital My Cloud. (1)
-    - Cabasse Stream 1.
-    - La Box Numericable.
-    - FreeBox Revolution. (1)
-	- CocktailAudio X40. (1)
- 
- Software servers
+No clients are written using this library so no statements can yet be made regarding the above supported OS's using this QtUPnP library.
 
-    - Windows Media Player (Windows).
-    - Foobar 2000 with UPnP/DLNA Renderer, Server, Control Point plugin (Windows).
-    - StriimServer Awox (Windows).
-    - MediaMonkey Windows (Windows).
-    - MediaTomb(Linux).
-	- MiniDLNA on Raspberry Pi 2, LEDE/OpenWRT, Linux (1).
-	- Plex Media Server (detected). (1)
-	- MinimServer (detected). (1)
+Help and Contributions
+----------------------
 
- Harware renderers
+If you have problems with this library on the aforementioned Operating Systems, please file an issue.
 
-   - Cabasse Stream 1.
-   - La Box Numericable.
-   - Some televisions Samsung, Sony, LG. (1)
-   - Denon AVR-X2100W Amplifier. (1)
-   - GGMM E5 (es-100). (1)
-   - Naim NAC-N 272. (1)
-   - Denon DRA-100. (1)
-   - LG TV webOS based 55B7V. (1)
-   - CocktailAudio X40. (1)
-   - Pioneer N-50. (1)
-   - Hegel H190 firmware version p5107.28 (1).
-
- Software renderers
-
-    BubbleUPnP (Android).
-    Foobar 2000 with UPnP/DLNA Renderer, Server, Control Point plugin (Windows).
-    Windows Media Player (Windows)
-	
- Router	detected
- 
- 	TPLink N600 Router. (1)
-	Box Numericable.
-	SuperHub 3 router from Virgin ISP. (1)
-	
- Over devices detected
-
-    Wemo Wi-Fi Smart Light Switch F7C030fc. (1)
-	Wemo Switch Smart Plug F7C027fc. (1)
-	
-  (1) Tested by users and contributors. Many thanks for your contribution and your help.
-
-If you have some free time to test or use AIVCtrl and chupnp, please use the issues tab for your remarks, malfunctions
-and also to report if your servers, renderers and other devices are working or not working properly.
-
+If you have QtUPnP working, please file an issue with your hardware, software and av player(s) used so they can be marked down.
 
 
 
